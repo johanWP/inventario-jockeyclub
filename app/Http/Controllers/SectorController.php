@@ -30,7 +30,7 @@ class SectorController extends Controller
      */
     public function create()
     {
-        $users = User::orderBy('name')->lists('name', 'id');
+        $users = User::where('area_id', '<>', 999)->orderBy('name')->lists('name', 'id');
         $selectedUser = null;
         return view('sectors.create', compact('selectedUser', 'users'));
     }
@@ -78,7 +78,7 @@ class SectorController extends Controller
     {
         $sector = Sector::findOrFail($id);
         $selectedUser = $sector->manager->id;
-        $users = User::orderBy('name')->lists('name', 'id');
+        $users = User::where('area_id', '<>', 999)->orderBy('name')->lists('name', 'id');
         return view('sectors.edit', compact('sector', 'selectedUser', 'users'));
     }
 
@@ -112,6 +112,9 @@ class SectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Sector::destroy($id);
+        flash('El sector se eliminó con éxito.', 'success');
+        return redirect('sectores');
+
     }
 }

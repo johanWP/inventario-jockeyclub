@@ -32,9 +32,10 @@
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('home') }}"><i class='fa fa-home'></i> <span>Home</span></a></li>
+            @if(Auth::user()->hasRole('Admin'))
             <li><a href="/rolesAdmin/"><i class='fa fa-user-md'></i> <span>Roles Admin</span></a></li>
-            <li><a href="/proveedores/"><i class='fa fa-link'></i> <span>Solo Proveedores</span></a></li>
-            {{--<li><a href="#"><i class='fa fa-link'></i> <span>Another Link</span></a></li>--}}
+            @endif
+            {{--<li><a href="/proveedores/"><i class='fa fa-link'></i> <span>Solo Proveedores</span></a></li>--}}
             <li class="treeview">
                 <a href="#"><i class='fa fa-area-chart'></i> <span>Areas</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
