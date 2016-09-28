@@ -57,53 +57,40 @@ class UserTableSeeder extends Seeder
         /**
         Usuarios reales
          */
-        $role_user = App\Role::where('name', 'Usuario')->first();
-        $user = new App\User();
-        $user->name='Matt Murdock';
-        $user->username='mmurdock';
-        $user->email = 'Matt@mail.com';
-        $user->password = bcrypt('123456');
-        $user->position = 'Vigilante';
-        $user->area_id = 1;
-        $user->ext = '1234';
-        $user->save();
-        $user->roles()->attach($role_user);
-
-//        $role_user = App\Role::where('name', 'Usuario')->first();
+        $role_user = App\Role::where('name', 'Admin')->first();
         $user = new User();
-        $user->name='Danny Rand';
-        $user->username='drand';
-        $user->email = 'ironFist@mail.com';
-        $user->password = bcrypt('123456');
-        $user->position = 'Profesor de karate';
+        $user->name='Johan Marchán';
+        $user->username='jmarchan';
+        $user->email = 'jmarchan@jockeyclub.com.ar';
+        $user->password = bcrypt('Diego2201');
+        $user->position = 'Desarrollador Sr.';
         $user->area_id = 3;
         $user->ext = '3456';
         $user->save();
         $user->roles()->attach($role_user);
-
-        $role_prov =App\Role::where('name', 'Proveedor')->first();
-        $prov = new User();
-        $prov->name='Wilson Fisk';
-        $prov->username='wfisk';
-        $prov->email = 'kingpin@mail.com';
-        $prov->password = bcrypt('123456');
-        $prov->position = 'Kingpin';
-        $prov->area_id = 1;
-        $prov->ext = '1895';
-        $prov->save();
-        $prov->roles()->attach($role_prov);
-
-        $role_analista =App\Role::where('name', 'Analista')->first();
-        $analista = new User();
-        $analista->name='Jessica Jones';
-        $analista->username='jjones';
-        $analista->email = 'jessie@mail.com';
-        $analista->password = bcrypt('123456');
-        $analista->position = 'Detective';
-        $analista->area_id = 2;
-        $analista->ext = '2358';
-        $analista->save();
-        $analista->roles()->attach($role_analista);
-
+        
+        $role_user = App\Role::where('name', 'Admin')->first();
+        $user = new App\User();
+        $user->name='Martín Beltramo';
+        $user->username='mbeltramo';
+        $user->email = 'mbeltramo@jockeyclub.com.ar';
+        $user->password = bcrypt('123456');
+        $user->position = 'Gerente de Aplicaciones';
+        $user->area_id = 1;
+        $user->ext = '1234';
+        $user->save();
+        $user->roles()->attach($role_user);
+        
+        $role_user = App\Role::where('name', 'Admin')->first();
+        $user = new App\User();
+        $user->name='Hector Centurión';
+        $user->username='hcenturion';
+        $user->email = 'hcenturion@jockeyclub.com.ar';
+        $user->password = bcrypt('123456');
+        $user->position = 'Gerente de Infraestructura';
+        $user->area_id = 1;
+        $user->ext = '1234';
+        $user->save();
+        $user->roles()->attach($role_user);
     }
 }

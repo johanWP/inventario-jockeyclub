@@ -12,26 +12,44 @@ class TypeTableSeed extends Seeder
     public function run()
     {
         $type = new \App\Type();
-        $type->name = 'Router Wi-Fi';
+        $type->name = 'Access Point Wi-Fi';
+        $type->prefix = 'AP';
         $type->save();
 
         $type = new \App\Type();
         $type->name = 'Impresora';
+        $type->prefix = 'IMP';
         $type->save();
+
         $type = new \App\Type();
         $type->name = 'PC';
+        $type->prefix = 'PC';
         $type->save();
+
         $type = new \App\Type();
-        $type->name = 'Laptop';
+        $type->name = 'Monitor';
+        $type->prefix = 'MON';
         $type->save();
+
         $type = new \App\Type();
-        $type->name = 'Mouse';
+        $type->name = 'Switch';
+        $type->prefix = 'SW';
         $type->save();
+
         $type = new \App\Type();
-        $type->name = 'Televisor';
+        $type->name = 'Server';
+        $type->prefix = 'SVR';
         $type->save();
+
         $type = new \App\Type();
-        $type->name = 'Teclado';
+        $type->name = 'Notebook';
+        $type->prefix = 'NTB';
         $type->save();
+
+        $type = new \App\Type();
+        $type->name = 'Teléfono';
+        $type->prefix = 'TEL';
+        $type->save();
+
     }
 }

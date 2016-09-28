@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
          $this->call(AreaTableSeeder::class);
          $this->call(UserTableSeeder::class);
          $this->call(TypeTableSeed::class);
-         $this->call(AssetTableSeed::class);
+         //$this->call(AssetTableSeed::class);
 
         Model::reguard();
     }

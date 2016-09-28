@@ -22,10 +22,10 @@ class RoleTableSeeder extends Seeder
         $role_analista->description = 'Un analista de proveedores';
         $role_analista->save();
 
-        $role_prov = new Role();
-        $role_prov->name = 'Proveedor';
-        $role_prov->description = 'Un Proveedor externo';
-        $role_prov->save();
+//        $role_prov = new Role();
+//        $role_prov->name = 'Proveedor';
+//        $role_prov->description = 'Un Proveedor externo';
+//        $role_prov->save();
 
         $role_admin = new Role();
         $role_admin->name = 'Admin';
