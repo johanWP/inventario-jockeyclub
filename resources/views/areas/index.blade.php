@@ -5,7 +5,7 @@
 @endsection
 @section('contentheader_title')
     Administrar Areas
-    <a href="/areas/create/" class="btn btn-primary btn-lg"><i class="ion ion-ios-pricetag"></i> Crear Nuevo</a>
+    <a href="/areas/create/" class="btn btn-primary btn-lg"><i class="ion ion-ios-pricetag"></i> Crear Nueva</a>
 @endsection
 
 @section('main-content')

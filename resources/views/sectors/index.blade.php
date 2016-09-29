@@ -25,7 +25,7 @@
                                 <th>Nombre</th>
                                 <th>Descripción</th>
                                 <th>Email</th>
-                                <th>Gerente del sector</th>
+                                {{--<th>Gerente del sector</th>--}}
                                 <th>&nbsp;</th>
                             </tr>
                             </thead>
@@ -35,7 +35,7 @@
                                     <td>{{$sector->name}}</td>
                                     <td>{{$sector->description}}</td>
                                     <td>{{$sector->email}}</td>
-                                    <td><a href="usuarios/{{$sector->manager->id}}">{{$sector->manager->name}}</a></td>
+{{--                                    <td><a href="usuarios/{{$sector->manager->id}}">{{$sector->manager->name}}</a></td>--}}
                                     <td align="right">
                                         <a href="sectores/{{$sector->id}}" class="btn btn-sm btn-default">Ver</a>
                                         <a href="sectores/{{$sector->id}}/edit" class="btn btn-sm btn-primary">Editar</a>

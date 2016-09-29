@@ -47,7 +47,7 @@ class SectorController extends Controller
             'name' => 'required|unique:areas|max:100',
             'description' => 'string|max:100',
             'email' => 'email',
-            'user_id' => 'required',
+//            'user_id' => 'required',
         ];
         $this->validate($request, $rules); //dd($request->all());
         Sector::create($request->all());
@@ -77,7 +77,7 @@ class SectorController extends Controller
     public function edit($id)
     {
         $sector = Sector::findOrFail($id);
-        $selectedUser = $sector->manager->id;
+//        $selectedUser = $sector->manager->id;
         $users = User::where('area_id', '<>', 999)->orderBy('name')->lists('name', 'id');
         return view('sectors.edit', compact('sector', 'selectedUser', 'users'));
     }
@@ -95,7 +95,7 @@ class SectorController extends Controller
             'name' => 'required|unique:areas|max:100',
             'description' => 'string|max:100',
             'email' => 'email',
-            'user_id' => 'required',
+//            'user_id' => 'required',
         ];
         $this->validate($request, $rules); //dd($request->all());
         $sector = Sector::findOrFail($id);

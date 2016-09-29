@@ -8,10 +8,10 @@
     {!! Form::text('description', null, ['class'=>'form-control']) !!}
 </div>
 
-<div class="form-group">
-    {!! Form::label('user_id', 'Gerente del sector:') !!}
-    {!! Form::select('user_id', $users, $selectedUser, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
-</div>
+{{--<div class="form-group">--}}
+    {{--{!! Form::label('user_id', 'Gerente del sector:') !!}--}}
+    {{--{!! Form::select('user_id', $users, $selectedUser, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}--}}
+{{--</div>--}}
 
 <div class="form-group">
     {!! Form::label('email', 'Email:') !!}

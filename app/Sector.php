@@ -18,7 +18,7 @@ class Sector extends Model
 
     public function manager()
     {
-        return $this->belongsTo('App\User', 'user_id');
+//        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function users()
