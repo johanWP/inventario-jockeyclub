@@ -70,6 +70,33 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-11">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Origen</th>
+                    <th>&nbsp;</th>
+                    <th>Destino</th>
+                    <th>Fecha</th>
+                    <th>Realizado por</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($moves as $move)
+                <tr>
+                    <td>{!! $move->usuarioOrigen->name !!}</td>
+                    <td><i class="fa fa-arrow-right"></i></td>
+                    <td>{!! $move->usuarioDestino->name !!}</td>
+                    <td>{!! $move->created_at !!}</td>
+                    <td>{!! $move->hechoPor->name !!}</td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>    </div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         <a style="margin-top: 20px" class="btn btn-default" href="#" onclick="history.back()">Volver</a>
     </div>

@@ -38,4 +38,9 @@ class Move extends Model
         return $this->belongsTo('App\User', 'destino');
     }
 
+    public function hechoPor()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
 }

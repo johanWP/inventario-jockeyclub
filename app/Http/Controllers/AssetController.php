@@ -93,7 +93,8 @@ class AssetController extends Controller
     public function show($id)
     {
         $asset = Asset::findOrFail($id);
-        return view('assets.read', compact('asset'));
+        $moves = $asset->moves;
+        return view('assets.read', compact('asset', 'moves'));
     }
 
     /**
