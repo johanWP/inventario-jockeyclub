@@ -17,7 +17,7 @@ class CreaTablaAreas extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('fax');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->integer('sector_id')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

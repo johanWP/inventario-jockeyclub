@@ -50,7 +50,7 @@ class AssetController extends Controller
             'marca'         => 'required',
             'modelo'        => 'required',
             'serial'        => 'required',
-            'precio'        => 'required|numeric',
+            'precio'        => 'numeric',
         ];
         $this->validate($request, $rules);
         $asset = new Asset();
@@ -62,6 +62,7 @@ class AssetController extends Controller
         $asset->precio = $request->precio;
         $asset->nota = $request->nota;
         $asset->status = 'A';
+        $asset->user_id = Auth::user()->id;
         $asset->save();
 
         $info = 'Fecha de compra: '.$asset->fechaCompra.
@@ -76,7 +77,7 @@ class AssetController extends Controller
         $move->destino = User::where('username', 'sistemas')->first()->id;
         $move->asset_id = $asset->id;
         $move->user_id = Auth::user()->id;
-        $move->save();
+        $move->save(); 
         QrCode::format('png')->size(200)->generate($info, 'qr/'.$asset->id.'.png');
 //        QrCode::format('png')->size(200)->generate(URL::to('/equipos/'.$asset->id), 'qr/'.$asset->id.'.png');
 
@@ -93,7 +94,7 @@ class AssetController extends Controller
     public function show($id)
     {
         $asset = Asset::findOrFail($id);
-        $moves = $asset->moves;
+        $moves = $asset->moves; 
         return view('assets.read', compact('asset', 'moves'));
     }
 
@@ -125,7 +126,7 @@ class AssetController extends Controller
             'marca'         => 'required',
             'modelo'        => 'required',
             'serial'        => 'required',
-            'precio'        => 'required|numeric',
+            'precio'        => 'numeric',
         ];
         $this->validate($request, $rules);
         $asset = Asset::findOrFail($id);

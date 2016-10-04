@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('area_id', '<>', '999')->orderBy('name')->get();
+        $users = User::where('user_type', '<>','V')->orderBy('name')->get();
         $areas = Area::orderBy('name');
 
         return view('users.index', compact('users', 'areas'));

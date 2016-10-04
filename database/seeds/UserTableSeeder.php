@@ -14,44 +14,6 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         /**
-        Usuarios reales
-         */
-        $role_user = App\Role::where('name', 'Admin')->first();
-        $user = new User();
-        $user->name='Johan Marchán';
-        $user->username='jmarchan';
-        $user->email = 'jmarchan@jockeyclub.com.ar';
-        $user->password = bcrypt('Diego2201');
-        $user->position = 'Desarrollador Sr.';
-        $user->area_id = 3;
-        $user->ext = '3456';
-        $user->save();
-        $user->roles()->attach($role_user);
-
-        $role_user = App\Role::where('name', 'Admin')->first();
-        $user = new App\User();
-        $user->name='Martín Beltramo';
-        $user->username='mbeltramo';
-        $user->email = 'mbeltramo@jockeyclub.com.ar';
-        $user->password = bcrypt('123456');
-        $user->position = 'Gerente de Aplicaciones';
-        $user->area_id = 1;
-        $user->ext = '1234';
-        $user->save();
-        $user->roles()->attach($role_user);
-
-        $role_user = App\Role::where('name', 'Admin')->first();
-        $user = new App\User();
-        $user->name='Hector Centurión';
-        $user->username='hcenturion';
-        $user->email = 'hcenturion@jockeyclub.com.ar';
-        $user->password = bcrypt('123456');
-        $user->position = 'Gerente de Infraestructura';
-        $user->area_id = 1;
-        $user->ext = '1234';
-        $user->save();
-        $user->roles()->attach($role_user);
-        /**
         Usuarios que correspenden a almacenes virtuales
          */
 
@@ -61,7 +23,8 @@ class UserTableSeeder extends Seeder
         $user->email = 'sistemas@mail.com';
         $user->password = bcrypt('S0meRandomStringX');
         $user->position = 'Almacén de Sistemas';
-        $user->area_id = 999;
+        $user->area_id = 1;
+        $user->user_type = 'V';
         $user->save();
 
         $user = new App\User();
@@ -70,7 +33,8 @@ class UserTableSeeder extends Seeder
         $user->email = 'compras@mail.com';
         $user->password = bcrypt('S0meRandomStringX');
         $user->position = 'Almacén de compras';
-        $user->area_id = 999;
+        $user->area_id = 1;
+        $user->user_type = 'V';
         $user->save();
 
         $user = new App\User();
@@ -79,7 +43,8 @@ class UserTableSeeder extends Seeder
         $user->email = 'robados@mail.com';
         $user->password = bcrypt('S0meRandomStringX');
         $user->position = 'Almacén de articulos robados';
-        $user->area_id = 999;
+        $user->area_id = 1;
+        $user->user_type = 'V';
         $user->save();
 
         $user = new App\User();
@@ -88,9 +53,48 @@ class UserTableSeeder extends Seeder
         $user->email = 'dañados@mail.com';
         $user->password = bcrypt('S0meRandomStringX');
         $user->position = 'Almacén de articulos dañados';
-        $user->area_id = 999;
+        $user->area_id = 1;
+        $user->user_type = 'V';
         $user->save();
 
 
+        /**
+        Usuarios reales
+         */
+        $role_user = App\Role::where('name', 'Admin')->first();
+        $user = new User();
+        $user->name='Johan Marchán';
+        $user->username='jmarchan';
+        $user->email = 'jmarchan@jockeyclub.com.ar';
+        $user->password = bcrypt('Diego2201');
+        $user->position = 'Desarrollador Sr.';
+        $user->area_id = 2;
+        $user->ext = '';
+        $user->save();
+        $user->roles()->attach($role_user);
+
+        $role_user = App\Role::where('name', 'Admin')->first();
+        $user = new App\User();
+        $user->name='Martín Beltramo';
+        $user->username='mbeltramo';
+        $user->email = 'mbeltramo@jockeyclub.com.ar';
+        $user->password = bcrypt('123456');
+        $user->position = 'Jefe de Aplicaciones';
+        $user->area_id = 2;
+        $user->ext = '';
+        $user->save();
+        $user->roles()->attach($role_user);
+
+        $role_user = App\Role::where('name', 'Admin')->first();
+        $user = new App\User();
+        $user->name='Hector Centurión';
+        $user->username='hcenturion';
+        $user->email = 'hcenturion@jockeyclub.com.ar';
+        $user->password = bcrypt('123456');
+        $user->position = 'Jefe de Infraestructura';
+        $user->area_id = 1;
+        $user->ext = '';
+        $user->save();
+        $user->roles()->attach($role_user);
     }
 }

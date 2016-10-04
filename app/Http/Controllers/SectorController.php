@@ -30,7 +30,7 @@ class SectorController extends Controller
      */
     public function create()
     {
-        $users = User::where('area_id', '<>', 999)->orderBy('name')->lists('name', 'id');
+        $users = User::where('user_type_', '<>', 'V')->orderBy('name')->lists('name', 'id');
         $selectedUser = null;
         return view('sectors.create', compact('selectedUser', 'users'));
     }
@@ -78,7 +78,7 @@ class SectorController extends Controller
     {
         $sector = Sector::findOrFail($id);
 //        $selectedUser = $sector->manager->id;
-        $users = User::where('area_id', '<>', 999)->orderBy('name')->lists('name', 'id');
+        $users = User::where('user_type_', '<>', 'V')->orderBy('name')->lists('name', 'id');
         return view('sectors.edit', compact('sector', 'selectedUser', 'users'));
     }
 

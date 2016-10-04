@@ -4,10 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogsActivityInterface;
+use Spatie\Activitylog\LogsActivity;
 
-class Asset extends Model
+class Asset extends Model implements LogsActivityInterface
 {
     use SoftDeletes;
+    use LogsActivity;
+
     protected $table = 'assets';
     protected $fillable = [
         'serial', 'marca', 'modelo', 'fechaCompra', 'precio',
@@ -55,5 +59,30 @@ class Asset extends Model
         $lastMove = Move::orderBy('id', 'desc')->first();
 
         return $lastMove->usuarioDestino;
+    }
+
+    /**
+     * Get the message that needs to be logged for the given event name.
+     *
+     * @param string $eventName
+     * @return string
+     */
+    public function getActivityDescriptionForEvent($eventName)
+    {
+        if ($eventName == 'created')
+        {
+            return 'El equipo serial "' . $this->serial . '" se creó';
+        }
+
+        if ($eventName == 'updated')
+        {
+            return 'El equipo "' . $this->serial . '" se actualizó';
+        }
+
+        if ($eventName == 'deleted')
+        {
+            return 'El equipo "' . $this->serial . '" se eliminó';
+        }
+        return '';
     }
 }

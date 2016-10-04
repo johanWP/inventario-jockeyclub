@@ -14,7 +14,8 @@
 		"doctrine/dbal": "~2.3",
         "intervention/image": "^2.3",
         "maatwebsite/excel": "~2.1.0",
-        "simplesoftwareio/simple-qrcode": "~1"
+        "simplesoftwareio/simple-qrcode": "~1",
+        "spatie/activitylog": "^2.4"
 
     },
     "require-dev": {

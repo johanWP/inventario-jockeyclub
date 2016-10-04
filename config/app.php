@@ -153,7 +153,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
         \InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
-        \InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
+//        \InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
 
         /*  Tratamiento de imagenes */
         Intervention\Image\ImageServiceProvider::class,
@@ -163,6 +163,9 @@ return [
 
         /* Simple QR-Code */
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+        /* Acivity Log https://github.com/spatie/activitylog */
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
     ],
 
     /*
@@ -224,6 +227,8 @@ return [
 
         /*  Simple QR-Code */
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+
+        'Activity' => 'Spatie\Activitylog\ActivitylogFacade',
     ],
 
 ];

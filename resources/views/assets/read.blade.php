@@ -83,6 +83,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach($moves as $move)
                 <tr>
                     <td>{!! $move->usuarioOrigen->name !!}</td>
