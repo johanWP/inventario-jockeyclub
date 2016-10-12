@@ -54,6 +54,7 @@
 <div class="row">
 
     <div class="col-sm-11">
+        <h4>Equipos Asignados</h4>
         <ul>
         @foreach($user->inventario as $item)
                 <li><a href="/equipos/{{$item->id}}">{{$item->type->name}} - {{ $item->serial }}</a></li>

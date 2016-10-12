@@ -166,6 +166,10 @@ return [
 
         /* Acivity Log https://github.com/spatie/activitylog */
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        
+        
+        /*  Bridge para user Pusher */
+        Vinkla\Pusher\PusherServiceProvider::class,
     ],
 
     /*
@@ -228,7 +232,7 @@ return [
         /*  Simple QR-Code */
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
-        'Activity' => 'Spatie\Activitylog\ActivitylogFacade',
+        'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
     ],
 
 ];
