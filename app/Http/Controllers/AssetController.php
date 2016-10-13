@@ -45,6 +45,8 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
+        $origen_por_defecto = User::where('username', 'compras')->first()->id;
+        $destino_por_defecto = User::where('username', 'sistemas')->first()->id;
         $rules = [
             'fechaCompra'   => 'required|date',
             'marca'         => 'required',
@@ -63,6 +65,7 @@ class AssetController extends Controller
         $asset->nota = $request->nota;
         $asset->status = 'A';
         $asset->user_id = Auth::user()->id;
+        $asset->usuario_actual = $destino_por_defecto;
         $asset->save();
 
         $info = 'Fecha de compra: '.$asset->fechaCompra.
@@ -73,11 +76,13 @@ class AssetController extends Controller
             'Precio: '.$asset->precio.
             'Nota: '.$asset->nota;
         $move = new Move();
-        $move->origen = User::where('username', 'compras')->first()->id;
-        $move->destino = User::where('username', 'sistemas')->first()->id;
+        $move->origen = $origen_por_defecto;
+        $move->destino = $destino_por_defecto;
         $move->asset_id = $asset->id;
         $move->user_id = Auth::user()->id;
-        $move->save(); 
+        $move->save();
+
+
         QrCode::format('png')->size(200)->generate($info, 'qr/'.$asset->id.'.png');
 //        QrCode::format('png')->size(200)->generate(URL::to('/equipos/'.$asset->id), 'qr/'.$asset->id.'.png');
 

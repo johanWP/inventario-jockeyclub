@@ -39,6 +39,11 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function area()
+    {
+        return $this->belongsTo('App\Area');
+    }
+
     /**
      * Devuelve los roles del usuario
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -84,7 +89,6 @@ class User extends Model implements AuthenticatableContract,
 
         return false;
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -92,89 +96,14 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Sector');
     }
-    /** Devuelve una coleccion de assets asignados al usuario, ordenados por tipo
+
+    /**
+     * Devuelve una coleccion de assets asignados al usuario, ordenados por tipo
      * @return Collection|static
      */
-    public function assets()
-    {
-        $assetIn = array();  $assetOut = array();
-        $inventario = new Collection();
-
-        // Pido todos los movimientos de entrada hacia ese almacen
-        $moveIn = Move::where('destino', $this->id)
-            ->orderBy('asset_id')
-            ->get();
-
-        //  Me quedo solo con los id de los assets que entraron
-        foreach ($moveIn as $in) {
-            $assetIn[] = $in->asset_id;
-        }
-
-//           Pido los movimientos que han sacado assets del almacen
-        $moveOut = Move::where('origen', $this->id)
-            ->orderBy('asset_id')
-            ->get();
-//           Me quedo con los ids de los assets que salieron
-        foreach ($moveOut as $out) {
-            $assetOut[] = $out->asset_id;
-        }
-        $assetIn = collect($assetIn);
-        $assetOut = collect($assetOut);
-//         A los assets que entraron, les resto los assets que salieron
-        $movimientos = $assetIn->diff($assetOut);
-
-//           Armo una coleccion con los assets que quedaron en el almacen
-        foreach ($movimientos as $mov)
-        {
-            $asset = Asset::find($mov);
-            $inventario->push($asset);
-        }
-        $inventario = $inventario->sortBy('type_id');
-        return $inventario;
-    }
-
-    public function area()
-    {
-        return $this->belongsTo('App\Area');
-    }
-
-
     public function getInventarioAttribute()
    {
-       $assetIn = array();  $assetOut = array();
-       $inventario = new Collection();
-
-       // Pido todos los movimientos de entrada hacia ese almacen
-       $moveIn = Move::where('destino', $this->id)
-           ->orderBy('asset_id')
-           ->get();
-
-       //  Me quedo solo con los id de los assets que entraron
-       foreach ($moveIn as $in) {
-           $assetIn[] = $in->asset_id;
-       }
-
-//           Pido los movimientos que han sacado assets del almacen
-       $moveOut = Move::where('origen', $this->id)
-           ->orderBy('asset_id')
-           ->get();
-//           Me quedo con los ids de los assets que salieron
-       foreach ($moveOut as $out) {
-           $assetOut[] = $out->asset_id;
-       }
-       $assetIn = collect($assetIn);
-       $assetOut = collect($assetOut);
-//         A los assets que entraron, les resto los assets que salieron
-       $movimientos = $assetIn->diff($assetOut);
-
-//           Armo una coleccion con los assets que quedaron en el almacen
-       foreach ($movimientos as $mov)
-       {
-           $asset = Asset::find($mov);
-           $inventario->push($asset);
-       }
-       $inventario = $inventario->sortBy('type_id');
-       return $inventario;
-
+       return Asset::where('usuario_actual', $this->id)->orderBy('type_id')->get();
    }
+
 }

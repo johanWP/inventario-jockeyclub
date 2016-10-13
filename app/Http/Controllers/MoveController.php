@@ -19,7 +19,7 @@ class MoveController extends Controller
      */
     public function index()
     {
-        $moves = Move::orderBy('updated_at', 'ASC')->get();
+        $moves = Move::orderBy('id', 'desc')->get();
         return view('moves.index', compact('moves'));
     }
 
@@ -48,13 +48,16 @@ class MoveController extends Controller
     { 
         foreach($request->asset_id as $asset_id)
         {
-//dd($request->destino);
             $move = new Move();
             $move->origen = $request->origen;
             $move->destino = $request->destino;
             $move->asset_id = $asset_id;  //
             $move->user_id = Auth::user()->id;
             $move->save();
+            
+            $asset = Asset::find($asset_id);
+            $asset->usuario_actual = $request->destino;
+            $asset->save();
         }
         flash('El movimiento se registró con éxito.', 'success');
         return redirect('movimientos');

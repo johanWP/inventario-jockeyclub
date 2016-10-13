@@ -29,15 +29,15 @@
                             <tbody>
                             @foreach ($moves as $move)
                                 <tr>
-                                    <td>{{$move->updated_at->diffForHumans() }}</td>
-                                    <td>{{$move->usuarioOrigen->name}}</td>
-                                    <td>{{$move->usuarioDestino->name}}</td>
+                                    <td>{{$move->created_at->format('d-M-Y h:m') }}</td>
+                                    <td><a href="/usuarios/{{ $move->usuarioOrigen->id }}">{{$move->usuarioOrigen->name}}</a></td>
+                                    <td><a href="/usuarios/{{ $move->usuarioDestino->id }}">{{$move->usuarioDestino->name}}</a></td>
                                     <td>{{$move->asset->serial}}</td>
                                     <td>{{$move->asset->marca}} / {{$move->asset->modelo}}</td>
                                     <td align="right">
                                         <a href="assets/" class="btn btn-sm btn-default">Ver</a>
-                                        <a href="assets/edit" class="btn btn-sm btn-primary">Editar</a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $move->id }}" data-name="{{$move->serial}}" data-model="moves">Borrar</button>
+                                        {{--<a href="assets/edit" class="btn btn-sm btn-primary">Editar</a>--}}
+                                        {{--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $move->id }}" data-name="{{$move->serial}}" data-model="moves">Borrar</button>--}}
                                     </td>
                                 </tr>
                                 @endforeach

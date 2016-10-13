@@ -37,7 +37,7 @@ class ApiController extends Controller
     public function getAssets($id)
     {
         $user = User::findOrFail($id);
-        return $user->assets();
+        return $user->inventario;
     }
 
     public function getNextSerial($type_id)

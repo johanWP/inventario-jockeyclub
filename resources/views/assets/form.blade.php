@@ -43,7 +43,10 @@
     <div class="col-sm-6">
         <div class="form-group">
             {!! Form::label('precio', 'Precio:') !!}
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-usd"></span></span>
             {!! Form::text('precio', null, ['class'=>'form-control']) !!}
+            </div>
         </div>
     </div>
 </div>
