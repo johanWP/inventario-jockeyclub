@@ -35,7 +35,7 @@
                                     <td>{{$asset->type->name}}</td>
                                     <td>{{$asset->marca}}</td>
                                     <td>{{$asset->modelo}}</td>
-                                    <td>{{$asset->user->name}}</td>
+                                    <td><a href="/usuarios/{{ $asset->owner->id }}">{{$asset->owner->name}}</a></td>
                                     <td>{{$asset->fechaCompra}}</td>
                                     <td align="right">
                                         <a href="equipos/{{$asset->id}}" class="btn btn-sm btn-default">Ver</a>

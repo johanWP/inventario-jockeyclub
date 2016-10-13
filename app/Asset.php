@@ -54,11 +54,10 @@ class Asset extends Model implements LogsActivityInterface
     /**
      * @return boolean
      */
-    public function owner()
+    public function getOwnerAttribute()
     {
         $lastMove = Move::orderBy('id', 'desc')->first();
-
-        return $lastMove->usuarioDestino;
+        return User::find($this->usuario_actual);
     }
 
     /**
