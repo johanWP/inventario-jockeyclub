@@ -21,3 +21,9 @@
         </div>
     </div>
 @endsection
+
+@section('additional-scripts')
+    <link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
+    @include('assets.assets_js')
+@endsection

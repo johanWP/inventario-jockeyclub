@@ -32,8 +32,8 @@
                                     <td>{{$move->created_at->format('d-M-Y h:m') }}</td>
                                     <td><a href="/usuarios/{{ $move->usuarioOrigen->id }}">{{$move->usuarioOrigen->name}}</a></td>
                                     <td><a href="/usuarios/{{ $move->usuarioDestino->id }}">{{$move->usuarioDestino->name}}</a></td>
-                                    <td>{{$move->asset->serial}}</td>
-                                    <td>{{$move->asset->marca}} / {{$move->asset->modelo}}</td>
+                                    <td><a href="/equipos/{{ $move->asset->id }}">{{ $move->asset->serial }}</a></td>
+                                    <td>{{ $move->asset->marca }} / {{$move->asset->modelo}}</td>
                                     <td align="right">
                                         <a href="assets/" class="btn btn-sm btn-default">Ver</a>
                                         {{--<a href="assets/edit" class="btn btn-sm btn-primary">Editar</a>--}}

@@ -4,12 +4,12 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AreasTableTest extends TestCase
+class UserTest extends TestCase
 {
     /**
      * @var string $tabla Nombre de la tabla de Areas
      */
-    protected $tabla = 'areas';
+    protected $tabla = 'users';
 
     /**
      * @var array $columns Los campos que debe tener la tabla
@@ -17,7 +17,7 @@ class AreasTableTest extends TestCase
     // Este array debe mantenerse consistente con $fillable en el Modelo Area
     protected $columns =
         [
-            'id', 'name', 'description', 'email', 'fax', 'sector_id',
+            'name', 'email', 'password', 'username', 'position', 'area_id', 'ext',
             'created_at', 'updated_at', 'deleted_at'
         ];
 
@@ -31,15 +31,20 @@ class AreasTableTest extends TestCase
         $this->assertTrue(Schema::hasTable($this->tabla));
     }
 
-    /**
-     * Test para verificar los campos en la tabla
-     * @return void
-     */
-    public function testCamposExisten()
+    public function testAddUser()
     {
-        for ($i=0; count($this->columns) > $i; $i++)
-        {
-            $this->assertTrue(Schema::hasColumn($this->tabla, $this->columns[$i]));
-        }
+        $johan = App\User::find(5);
+        $ran = rand(1000, 9999);
+        $this->actingAs($johan)
+            ->visit('/usuarios/create')
+            ->type('Usuario test', 'name')
+            ->type('test_user_'.$ran, 'username')
+            ->type('Cargo test', 'position')
+            ->type('user_email_'.ran.'@mail.com', 'email')
+            ->type($ran, 'ext')
+            ->select('1','area_id')
+            ->press('Incluir nuevo usuario')
+            ->see('El usuario se creó con éxito.');
+
     }
 }

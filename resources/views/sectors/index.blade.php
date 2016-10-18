@@ -39,7 +39,7 @@
                                     <td align="right">
                                         <a href="sectores/{{$sector->id}}" class="btn btn-sm btn-default">Ver</a>
                                         <a href="sectores/{{$sector->id}}/edit" class="btn btn-sm btn-primary">Editar</a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $sector->id }}" data-name="{{$sector->name}}" data-model="sectores">Borrar</button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $sector->id }}" data-name="{{$sector->name}}" data-model="sectores" id="btn_{{ $sector->id }}">Borrar</button>
                                     </td>
                                 </tr>
                             @endforeach

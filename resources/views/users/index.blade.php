@@ -33,11 +33,11 @@
                             <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td>{{$user->name}}</td>
-                                  <td>{{$user->area->sector->name}}</td>
-                                      <td>{{$user->area->name}}</td>
-                                    <td>{{$user->ext}}</td>
-                                    <td>{{$user->email}}</td>
+                                    <td><a href="/usuarios/{{ $user->id }}">{{ $user->name }}</a></td>
+                                    <td><a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a></td>
+                                    <td><a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a></td>
+                                    <td>{{ $user->ext }}</td>
+                                    <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                     <td align="right">
                                         <a href="usuarios/{{$user->id}}" class="btn btn-sm btn-default">Ver</a>
                                         <a href="usuarios/{{$user->id}}/edit" class="btn btn-sm btn-primary">Editar</a>

@@ -29,13 +29,13 @@
                             <tbody>
                             @foreach ($areas as $area)
                                 <tr>
-                                    <td>{{$area->name}}</td>
-                                    <td>{{$area->sector->name}}</td>
-                                    <td>{{$area->email}}</td>
-                                    <td>{{$area->fax}}</td>
+                                    <td><a href="/areas/{{ $area->id }}">{{ $area->name }}</a></td>
+                                    <td><a href="/sectores/{{ $area->sector->id }}">{{ $area->sector->name }}</a></td>
+                                    <td><a href="mailto:{{ $area->email }}">{{ $area->email }}</a></td>
+                                    <td>{{ $area->fax }}</td>
                                     <td align="right">
-                                        <a href="areas/{{$area->id}}" class="btn btn-sm btn-default">Ver</a>
-                                        <a href="areas/{{$area->id}}/edit" class="btn btn-sm btn-primary">Editar</a>
+                                        <a href="/areas/{{$area->id}}" class="btn btn-sm btn-default">Ver</a>
+                                        <a href="/areas/{{$area->id}}/edit" class="btn btn-sm btn-primary">Editar</a>
                                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $area->id }}" data-name="{{$area->name}}" data-model="areas">Borrar</button>
                                     </td>
                                 </tr>

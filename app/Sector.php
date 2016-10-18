@@ -9,7 +9,7 @@ class Sector extends Model
 {
     use SoftDeletes;
     protected $table = 'sectors';
-    protected $fillable = ['name', 'description', 'email', 'user_id'];
+    protected $fillable = ['name', 'description', 'email', 'office_id'];
     
     public function areas()
     {

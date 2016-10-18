@@ -22,6 +22,20 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+            {!! Form::label('proveedor', 'Proveedor:') !!}
+            {!! Form::text('proveedor', null, ['class'=>'form-control']) !!}
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('orden_compra', 'Orden de Compra:') !!}
+            {!! Form::text('orden_compra', null, ['class'=>'form-control']) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
             {!! Form::label('marca', 'Marca:') !!}
             {!! Form::text('marca', null, ['class'=>'form-control']) !!}
         </div>
@@ -37,7 +51,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             {!! Form::label('serial', 'Serial:') !!}
-            {!! Form::text('serial', null, ['class'=>'form-control', 'readonly'=>'true']) !!}
+            {!! Form::text('serial', null, ['class'=>'form-control']) !!}
         </div>
     </div>
     <div class="col-sm-6">

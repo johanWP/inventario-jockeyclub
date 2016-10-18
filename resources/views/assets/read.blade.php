@@ -17,6 +17,14 @@
         <div class="col-sm-8">{{ $asset->fechaCompra }}</div>
     </div>
     <div class="row">
+        <div class="col-sm-4"><b>Proveedor:</b></div>
+        <div class="col-sm-8">{{ $asset->proveedor }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4"><b>Orden de Compra:</b></div>
+        <div class="col-sm-8">{{ $asset->orden_compra }}</div>
+    </div>
+    <div class="row">
         <div class="col-sm-4"><b>Tipo de equipo:</b></div>
         <div class="col-sm-8">{{ $asset->type->name }}</div>
     </div>
@@ -38,7 +46,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4"><b>Asignado a:</b></div>
-        <div class="col-sm-8"><a href="/usuarios/{{$asset->owner()->id}}">{{ $asset->owner()->name }}</a></div>
+        <div class="col-sm-8"><a href="/usuarios/{{$asset->owner->id}}">{{ $asset->owner->name }}</a></div>
     </div>
     <div class="row">
         <div class="col-sm-4"><b>Notas:</b></div>

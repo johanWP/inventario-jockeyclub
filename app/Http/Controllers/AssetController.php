@@ -60,6 +60,8 @@ class AssetController extends Controller
         $asset->marca = $request->marca;
         $asset->modelo = $request->modelo;
         $asset->serial = $request->serial;
+        $asset->proveedor = $request->proveedor;
+        $asset->orden_compra = $request->orden_compra;
         $asset->type_id = $request->type_id;
         $asset->precio = $request->precio;
         $asset->nota = $request->nota;
@@ -68,23 +70,8 @@ class AssetController extends Controller
         $asset->usuario_actual = $destino_por_defecto;
         $asset->save();
 
-        $info = 'Fecha de compra: '.$asset->fechaCompra.
-            'Marca: '.$asset->marca.
-            'Modelo: '.$asset->modelo.
-            'Serial: '.$asset->serial.
-            'Tipo: '.$asset->type->name.
-            'Precio: '.$asset->precio.
-            'Nota: '.$asset->nota;
-        $move = new Move();
-        $move->origen = $origen_por_defecto;
-        $move->destino = $destino_por_defecto;
-        $move->asset_id = $asset->id;
-        $move->user_id = Auth::user()->id;
-        $move->save();
-
-
-        QrCode::format('png')->size(200)->generate($info, 'qr/'.$asset->id.'.png');
-//        QrCode::format('png')->size(200)->generate(URL::to('/equipos/'.$asset->id), 'qr/'.$asset->id.'.png');
+        $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);
+        $qr = $this->CrearCodigoQr($asset);
 
         flash('El equipo se creó con éxito.', 'success');
         return redirect('equipos');
@@ -129,6 +116,8 @@ class AssetController extends Controller
         $rules = [
             'fechaCompra'   => 'required|date',
             'marca'         => 'required',
+            'proveedor'     => 'string',
+            'orden_compra'  => 'string',
             'modelo'        => 'required',
             'serial'        => 'required',
             'precio'        => 'numeric',
@@ -137,6 +126,8 @@ class AssetController extends Controller
         $asset = Asset::findOrFail($id);
         $asset->fechaCompra = $request->fechaCompra;
         $asset->marca = $request->marca;
+        $asset->proveedor = $request->proveedor;
+        $asset->orden_compra = $request->orden_compra;
         $asset->modelo = $request->modelo;
         $asset->serial = $request->serial;
         $asset->type_id = $request->type_id;
@@ -158,7 +149,7 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        if(count(Move::where('asset_id', $id)->get()) > 0)
+        if(count(Move::where('asset_id', $id)->get()) > 1)
         {
             flash('No se puede eliminar un equipo que ha tenido movimientos. Envíelo al almacén de Dañados o Robados', 'danger');
         } else
@@ -167,6 +158,31 @@ class AssetController extends Controller
             flash('El equipo se eliminó con éxito.', 'success');
         }
         return redirect('equipos');
-        //TODO: Revisar por qué no toma el softDelete
+    }
+
+    private function CrearMovimiento($origen, $destino, $asset_id, $user_id)
+    {
+        $move = new Move();
+        $move->origen = $origen;
+        $move->destino = $destino;
+        $move->asset_id = $asset_id;
+        $move->user_id = $user_id;
+        $result = $move->save();
+        return $result;
+    }
+
+    private function CrearCodigoQr($asset)
+    {
+        $path= 'qr/'.$asset->id.'.png';
+        $info = 'Fecha de compra: '.$asset->fechaCompra.'\n'.
+            'Marca: '.$asset->marca.'\n'.
+            'Modelo: '.$asset->model.'\n'.
+            'Serial: '.$asset->seria.'\n'.
+            'Proveedor: '.$asset->proveedor.'\n'.
+            'Precio: '.$asset->precio.'\n'.
+            'Nota: '.$asset->nota.'\n';
+
+        return QrCode::format('png')->size(200)->generate($info, $path);
+
     }
 }

@@ -31,15 +31,15 @@
                             <tbody>
                             @foreach ($assets as $asset)
                                 <tr>
-                                    <td>{{ $asset->serial }}</td>
-                                    <td>{{$asset->type->name}}</td>
-                                    <td>{{$asset->marca}}</td>
-                                    <td>{{$asset->modelo}}</td>
+                                    <td><a href="/equipos/{{ $asset->id }}">{{ $asset->serial }}</a></td>
+                                    <td>{{ $asset->type->name }}</td>
+                                    <td>{{ $asset->marca }}</td>
+                                    <td>{{ $asset->modelo }}</td>
                                     <td><a href="/usuarios/{{ $asset->owner->id }}">{{$asset->owner->name}}</a></td>
                                     <td>{{$asset->fechaCompra}}</td>
                                     <td align="right">
-                                        <a href="equipos/{{$asset->id}}" class="btn btn-sm btn-default">Ver</a>
-                                        <a href="equipos/{{$asset->id}}/edit/" class="btn btn-sm btn-primary">Editar</a>
+                                        <a href="equipos/{{ $asset->id }}" class="btn btn-sm btn-default">Ver</a>
+                                        <a href="equipos/{{ $asset->id }}/edit/" class="btn btn-sm btn-primary">Editar</a>
                                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $asset->id }}" data-name="{{$asset->serial}}" data-model="equipos">Borrar</button>
                                     </td>
                                 </tr>
