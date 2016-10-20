@@ -49,10 +49,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('usuarios', 'UserController');
     Route::resource('equipos', 'AssetController');
     Route::resource('movimientos', 'MoveController');
+    Route::get('papelera/', 'TrashController@index');
 });
 
 Route::group(['middleware' => 'api'], function () {
     Route::get('api/getSectors/', ['as' => 'getSectors', 'uses' => 'ApiController@getSectors']);
     Route::get('api/getAssets/{id}', ['as' => 'getAssets', 'uses' => 'ApiController@getAssets']);
     Route::get('api/getNextSerial/{type_id}', ['as' => 'getNextSerial', 'uses' => 'ApiController@getNextSerial']);
+    Route::post('papelera/{modelo}/{id}', 'TrashController@restaurar');
 });

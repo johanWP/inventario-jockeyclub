@@ -80,7 +80,7 @@
                     <li><a href="/sectores">Ver Todos</a></li>
                 </ul>
             </li>
-
+            <li><a href="/papelera"><i class='fa fa-trash'></i> <span>Papelera</span></a></li>
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

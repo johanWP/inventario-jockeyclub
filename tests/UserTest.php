@@ -40,7 +40,7 @@ class UserTest extends TestCase
             ->type('Usuario test', 'name')
             ->type('test_user_'.$ran, 'username')
             ->type('Cargo test', 'position')
-            ->type('user_email_'.ran.'@mail.com', 'email')
+            ->type('user_email_'.$ran.'@mail.com', 'email')
             ->type($ran, 'ext')
             ->select('1','area_id')
             ->press('Incluir nuevo usuario')

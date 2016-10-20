@@ -71,7 +71,7 @@ class AssetController extends Controller
         $asset->save();
 
         $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);
-        $qr = $this->CrearCodigoQr($asset);
+//        $qr = $this->CrearCodigoQr($asset);
 
         flash('El equipo se creó con éxito.', 'success');
         return redirect('equipos');
@@ -155,7 +155,7 @@ class AssetController extends Controller
         } else
         {
             Asset::destroy($id);
-            flash('El equipo se eliminó con éxito.', 'success');
+            flash('El equipo se eliminó con éxito. <a href="#">Deshacer</a>', 'warning');
         }
         return redirect('equipos');
     }

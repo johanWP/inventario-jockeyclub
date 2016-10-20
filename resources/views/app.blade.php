@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @include('partials.htmlheader')
 @include('partials.scripts')
 @yield('additional-scripts')
+{{--
 <!--
 BODY TAG OPTIONS:
 =================
@@ -28,6 +29,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+--}}
 <body class="skin-green sidebar-mini">
 <div class="wrapper">
 
@@ -43,7 +45,7 @@ desired effect
         <!-- Main content -->
         <section class="content">
             <!-- Your Page Content Here -->
-            @include('partials.flash')
+{{--            @include('partials.flash')--}}
             @yield('main-content')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

@@ -15,7 +15,7 @@
                 @include('errors.validationErrors')
                 <div class="register-box-body">
                     {!! Form::open(['url'=>'equipos']) !!}
-                    @include('assets.form', ['buttonText'=>'Incluir equipos'])
+                    @include('assets.form', ['buttonText'=>'Incluir equipo'])
                     {!! Form::close() !!}
                 </div>
             </div>
