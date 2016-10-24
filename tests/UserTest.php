@@ -37,7 +37,7 @@ class UserTest extends TestCase
         $ran = rand(1000, 9999);
         $this->actingAs($johan)
             ->visit('/usuarios/create')
-            ->type('Usuario test', 'name')
+            ->type('Usuario test '.$ran, 'name')
             ->type('test_user_'.$ran, 'username')
             ->type('Cargo test', 'position')
             ->type('user_email_'.$ran.'@mail.com', 'email')
@@ -45,6 +45,24 @@ class UserTest extends TestCase
             ->select('1','area_id')
             ->press('Incluir nuevo usuario')
             ->see('El usuario se creó con éxito.');
+
+    }
+
+    public function testEditUser()
+    {
+        $johan = App\User::find(5);
+        $user = \App\User::get()->last();
+        $ran = rand(1000, 9999);
+        $this->actingAs($johan)
+            ->visit('/usuarios/'. $user->id .'/edit')
+            ->type('Usuario test Editado '.$ran, 'name')
+            ->type('test_user_'.$ran, 'username')
+            ->type('Cargo test', 'position')
+            ->type('user_email_'.$ran.'@mail.com', 'email')
+            ->type($ran, 'ext')
+            ->select('1','area_id')
+            ->press('Actualizar usuario')
+            ->see('El usuario se actualizó con éxito.');
 
     }
 }
