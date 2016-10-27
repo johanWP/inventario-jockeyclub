@@ -25,6 +25,19 @@
                 </div>
             </div>
         </div>
+        <br>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="panel panel-default" id="inventario-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span id="inventario-titulo"></span> </h3>
+                    </div>
+                    <div class="panel-body" id="inventario-body">
+                        <ul id="inventario-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -33,6 +46,7 @@
     <link rel="stylesheet" href="/plugins/select2/select2.min.css">
     <script type="text/javascript">
         $( document ).ready(function() {
+            $('#inventario-panel').hide();
             $('#origen').change(function()
             {
                 var user = $('#origen').val();
@@ -61,7 +75,45 @@
                 placeholder: "Seleccione..."
             });
 
-        })  //  Fin del document.ready
+            $('#destino').on('change', function(){
+                var userId = $('#destino').val();
+                var html = '';
+                var userName = $('#destino option:selected').text();
+
+                if(userName == 'Seleccione...') {
+                    $('#inventario-list').fadeOut();
+                    $('#inventario-panel').fadeOut();
+                } else {
+                    $('#inventario-panel').fadeIn();
+                    $('#inventario-list').fadeOut();
+                    $('#inventario-titulo').html( 'Inventario de ' + userName);
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/getAssets/" + userId,
+                        dataType: 'json'
+                    })
+                            .done(function( msg )
+                            {
+                                $('#inventario-list').empty();
+                                html = '';
+                                for(var k in msg)
+                                {
+                                    $('#inventario-list').append('' +
+                                            '<li>'  +
+                                            '<a href= "/equipos/' + msg[k].id + '">' + msg[k].marca + ' ' + msg[k].modelo + ' (' + msg[k].serial + ')' +
+                                            '</a></li>'
+                                    );
+                                }
+                                $('#inventario-list').fadeIn();
+                            })
+                            .fail(function(msg)
+                            {
+                                alert('Ocurrió un error al cargar el inventario del destino');
+                            });
+                }
+            });   // fin del destino.onChange()
+
+        });  //  Fin del document.ready
 
     </script>
 @endsection
