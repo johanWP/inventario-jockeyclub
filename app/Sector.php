@@ -23,7 +23,7 @@ class Sector extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\User', 'App\Area')->orderBy('name');
+        return $this->hasManyThrough('App\User', 'App\Area')->where('user_type', 'U')->orderBy('name');
     }
 
 

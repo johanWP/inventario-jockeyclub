@@ -6,6 +6,7 @@
 @section('contentheader_title')
     Administrar usuarios
     <a href="/usuarios/create/" class="btn btn-primary btn-lg"><i class="ion ion-person-add"></i> Crear Nuevo</a>
+
 @endsection
 
 
@@ -39,7 +40,7 @@
                                     <td>{{ $user->ext }}</td>
                                     <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                     <td align="right">
-                                        <a href="usuarios/{{$user->id}}" class="btn btn-sm btn-default">Ver</a>
+{{--                                        <a href="usuarios/{{$user->id}}" class="btn btn-sm btn-default">Ver</a>--}}
                                         <a href="usuarios/{{$user->id}}/edit" class="btn btn-sm btn-primary">Editar</a>
                                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $user->id }}" data-name="{{$user->name}}" data-model="usuarios">Borrar</button>
                                     </td>
@@ -47,7 +48,7 @@
                             @endforeach
                             </tbody>
                         </table>
-
+                        <div><i class="fa fa-print"></i><a href="/pdf/guia" target="_blank"> Version Imprimible</a></div>
                         </div>
                     </div>
                 </div>

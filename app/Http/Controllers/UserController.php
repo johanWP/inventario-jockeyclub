@@ -52,7 +52,7 @@ class UserController extends Controller
         $rules = [
             'username'  => 'required|unique:users|max:100',
             'name'      => 'required|unique:users|max:200',
-            'position'  => 'required|string|max:100',
+            'position'  => 'string|max:100',
             'email'     => 'email',
             'area_id'   => 'required',
             'ext'       => 'digits:4',
@@ -118,7 +118,7 @@ class UserController extends Controller
         $rules = [
             'username'  => 'required|max:100',
             'name'      => 'required|max:200',
-            'position'  => 'required|string|max:100',
+            'position'  => 'string|max:100',
             'email'     => 'email',
             'area_id'   => 'required',
             'ext'       => 'digits:4',

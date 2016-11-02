@@ -170,6 +170,9 @@ return [
         
         /*  Bridge para user Pusher */
         Vinkla\Pusher\PusherServiceProvider::class,
+
+        Barryvdh\Snappy\ServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +236,9 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
         'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
+
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],
 
 ];

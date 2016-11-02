@@ -1,6 +1,7 @@
 <head>
+    <script src="{{ asset('/plugins/jQuery/jQuery-3.1.0.min.js') }}"></script>
     <meta charset="UTF-8">
-    <title> Jockey Club AC - @yield('htmlheader_title', 'Your title here') </title>
+    <title> Jockey Club AC - @yield('htmlheader_title', 'Inventario') </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />

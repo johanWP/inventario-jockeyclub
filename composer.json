@@ -10,14 +10,16 @@
 		"acacha/admin-lte-template-laravel": "1.*",
 		"infyomlabs/laravel-generator": "dev-master",
 		"laravelcollective/html": "5.1.*",
-		"infyomlabs/core-templates": "dev-master",
 		"doctrine/dbal": "~2.3",
         "intervention/image": "^2.3",
         "maatwebsite/excel": "~2.1.0",
         "simplesoftwareio/simple-qrcode": "~1",
         "spatie/activitylog": "^2.4",
         "pusher/pusher-php-server": "~2.0",
-        "vinkla/pusher": "^2.4"
+        "vinkla/pusher": "^2.4",
+        "barryvdh/laravel-snappy": "^0.3.1",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x"
 
     },
     "require-dev": {
