@@ -106,4 +106,11 @@ class User extends Model implements AuthenticatableContract,
        return Asset::where('usuario_actual', $this->id)->orderBy('type_id')->get();
    }
 
+    public function getMovesAttribute()
+    {
+        return collect(Move::where('origen', $this->id)
+            ->orWhere('destino', $this->id)
+            ->orderBy('id', 'DESC')->get());
+    }
+
 }
