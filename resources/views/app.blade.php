@@ -27,7 +27,7 @@ desired effect
 -->
 --}}
 <body class="skin-green sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
 
     @include('partials.mainheader')
 
@@ -54,5 +54,6 @@ desired effect
 
 
 @include('partials.flash')
+@yield('footer-scripts')
 </body>
 </html>

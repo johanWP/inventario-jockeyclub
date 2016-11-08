@@ -58,5 +58,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('api/getSectors/', ['as' => 'getSectors', 'uses' => 'ApiController@getSectors']);
     Route::get('api/getAssets/{id}', ['as' => 'getAssets', 'uses' => 'ApiController@getAssets']);
     Route::get('api/getNextSerial/{type_id}', ['as' => 'getNextSerial', 'uses' => 'ApiController@getNextSerial']);
+    Route::get('api/getUserDetails/{user_id}', ['as' => 'getUserDetails', 'uses' => 'ApiController@getUserDetails']);
+    Route::post('api/postUserDetails', ['as' => 'postUserDetails', 'uses' => 'ApiController@postUserDetails']);
 //    Route::post('papelera/{modelo}/{id}', 'TrashController@restaurar');
 });

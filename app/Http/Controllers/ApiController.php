@@ -23,17 +23,15 @@ class ApiController extends Controller
     {
         $result = array();
         $sectors = Sector::orderBy('name')->get();
-        foreach ($sectors as $sector)
-        {
+        foreach ($sectors as $sector) {
             $areas = $sector->areas;
-            foreach ($areas as $area)
-            {
-                $result[$sector->id][] =['id' =>$area->id, 'name' => $area->name];
+            foreach ($areas as $area) {
+                $result[$sector->id][] = ['id' => $area->id, 'name' => $area->name];
             }
         }
         return $result;
     }
-    
+
     public function getAssets($id)
     {
         $user = User::findOrFail($id);
@@ -43,7 +41,41 @@ class ApiController extends Controller
     public function getNextSerial($type_id)
     {
         $nextId = (count(Asset::where('type_id', $type_id)->withTrashed()->get()) + 1);
-        $nextSerial = Type::find($type_id)->prefix .'-'. $nextId;
+        $nextSerial = Type::find($type_id)->prefix . '-' . $nextId;
         return $nextSerial;
+    }
+
+    public function getUserDetails($user_id)
+    {
+        $data = array();
+        $user = User::find($user_id);
+        if ($user) {
+            $data = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'ext' => $user->ext,
+                'position' => $user->position
+            ];
+            return $data;
+        } else {
+            return response(['message' => 'UsuarioNoEncontrado'], 404);
+        }
+    }
+
+    public function postUserDetails( Request $request )
+    {
+        $user = User::find( $request->user_id );
+        if ( $user )
+        {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->position = $request->position;
+            $user->ext = $request->ext;
+            $user->save();
+            return response(['message' => 'OK'], 200);
+        } else
+        {
+            return response(['message' => 'UsuarioNoEncontrado'], 404);
+        }
     }
 }

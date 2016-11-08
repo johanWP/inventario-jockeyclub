@@ -5,43 +5,43 @@
 @endsection
 
 @section('contentheader_title')
-    Detalles del Usuario
+    Detalles de {{ $user->name }} 1
 @endsection
 
 @section('main-content')
 <div class="container">
-    <section class="content">
-
+    <section class="content" id="content">
         <div class="row">
             <div class="col-md-3">
 
                 <!-- Profile Image -->
-                <div class="box box-primary">
-                    <div class="box-body box-profile">
-                        @if(file_exists('img/userImages/'.$user->username.'.jpg'))
-                            <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/{{$user->username}}.jpg" alt="{{ $user->name }}">
-                        @else
-                            <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">
-                        @endif
-                        <h3 class="profile-username text-center">{{ $user->name }}</h3>
-                        <p class="text-muted text-center">{{ $user->position }}</p>
+                <user_box user_id="{{ $user->id }}"></user_box>
+                {{--<div class="box box-primary">--}}
+                    {{--<div class="box-body box-profile">--}}
+                        {{--@if(file_exists('img/userImages/'.$user->username.'.jpg'))--}}
+                            {{--<img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/{{$user->username}}.jpg" alt="{{ $user->name }}">--}}
+                        {{--@else--}}
+                            {{--<img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">--}}
+                        {{--@endif--}}
+                        {{--<h3 class="profile-username text-center">{{ $user->name }}</h3>--}}
+                        {{--<p class="text-muted text-center">{{ $user->position }}</p>--}}
 
-                        <ul class="list-group list-group-bordered">
-                            <li class="list-group-item">
-                                <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Interno: </b> {{ $user->ext }}
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>
-                                -
-                                <a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
+                        {{--<ul class="list-group list-group-bordered">--}}
+                            {{--<li class="list-group-item">--}}
+                                {{--<a href="mailto:{{ $user->email }}">{{ $user->email }}</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="list-group-item">--}}
+                                {{--<b>Interno: </b> {{ $user->ext }}--}}
+                            {{--</li>--}}
+                            {{--<li class="list-group-item">--}}
+                                {{--<a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>--}}
+                                {{-----}}
+                                {{--<a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                    {{--<!-- /.box-body -->--}}
+                {{--</div>--}}
                 <!-- /.box -->
 
                 <!-- About Me Box -->
@@ -112,7 +112,7 @@
                                 @if($fecha != $move->created_at)
                                     <!-- timeline time label -->
                                         <li class="time-label">
-                                            <span class="bg-red">{{ $move->created_at->format('d-M-Y h:m') }}</span>
+                                            <span class="bg-red">{{ $move->created_at->format('d-M-Y H:i') }}</span>
                                         </li>
                                     <?php $fecha = $move->created_at ?>
                                     <!-- /.timeline-label -->
@@ -129,7 +129,7 @@
 
                                             <h3 class="timeline-header">
                                                 <a href="/equipos/{{ $move->asset->id }}">
-                                                    {{ $move->asset->marca }} - {{ $move->asset->modelo }}, Serial: {{ $move->asset->serial }}
+                                                    {{ $move->asset->marca }}  {{ $move->asset->modelo }}, Serial: {{ $move->asset->serial }}
                                                 </a>
                                             </h3>
 
@@ -145,16 +145,16 @@
                                                         {{ $move->usuarioDestino->name }}
                                                     </a>
                                                 @endif
+                                                <span class="pull-right"><a class="btn btn-primary btn-xs" href="/equipos/{{ $move->asset->id }}">Ver detalles</a></span>
                                             </div>
-                                            <div class="timeline-footer">
-                                                <a class="btn btn-primary btn-xs" href="/equipos/{{ $move->asset->id }}">Ver detalles</a>
-                                            </div>
+                                            {{--<div class="timeline-footer">--}}
+                                            {{--</div>--}}
                                         </div>
                                     </li>
                                     <!-- END timeline item -->
                                 @endforeach
                                 <li>
-                                    <i class="fa fa-clock-o bg-gray"></i> <span class="pull-right">Usuario creado {{ $user->created_at->format('d-M-Y h:m:s') }}</span>
+                                    <i class="fa fa-clock-o bg-gray"></i> <span class="pull-right">Usuario creado {{ $user->created_at->format('d-M-Y h:i') }}</span>
                                 </li>
                             </ul>
                             @endif
@@ -189,8 +189,9 @@
     </section>
     <!-- /.content -->
 </div>
+
 @endsection
-@section('additional-scripts')
+@section('footer-scripts')
     <!-- Bootstrap WYSIHTML5 -->
     <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
@@ -204,4 +205,46 @@
         })
 
     </script>
+
+    <script type="x-template" id="user_box-template">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    @if(file_exists('img/userImages/'.$user->username.'.jpg'))
+                        <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/{{$user->username}}.jpg" alt="{{ $user->name }}">
+                    @else
+                        <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">
+                    @endif
+                    <h3 v-show="!editing" v-model="name" class="profile-username text-center">@{{ name }}</h3>
+                    <input type="text" v-show="editing" v-model="name"  class="form-control" style="margin-top: 2em">
+
+                    <p class="text-muted text-center" v-show="!editing" v-model="position">@{{ position }}</p>
+                    <input type="text" v-show="editing" v-model="position"  class="form-control">
+
+                    <form action="frmUserDetails">
+                        <div class="form-group">
+                            <input v-model="email" v-show="editing" type="text" id="email" class="form-control">
+                            <ul class="list-group" v-show="!editing" >
+                                <li class="list-group-item" style="border: none">
+                                    <a href="#">@{{ email }}</a>
+                                </li>
+                                <li class="list-group-item"  style="border: none">
+                                    <span v-model="ext" ><b>Interno: </b> @{{ ext }}</span>
+                                </li>
+                                <li class="list-group-item"  style="border: none">
+                                    <a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>
+                                    -
+                                    <a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>
+                                </li>
+                            </ul>
+                            <input type="text" v-show="editing" id="ext" v-model="ext" class="form-control">
+                        </div>
+                        <button v-show="!editing" @click.prevent="edit" class="center-block btn btn-primary">Edición Rápida</button>
+                        <button v-show="editing" @click.prevent="save" class="center-block btn btn-primary">Guardar!</button>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+    </script>
+    <script src="{{ asset('/js/vue/user-box-component.js') }}"></script>
+
 @endsection

@@ -27,4 +27,8 @@
     <![endif]-->
     <!-- DataTables -->
     <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
+
+    @if (Auth::check())
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endif
 </head>
