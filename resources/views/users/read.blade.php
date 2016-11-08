@@ -16,34 +16,6 @@
 
                 <!-- Profile Image -->
                 <user_box user_id="{{ $user->id }}"></user_box>
-                {{--<div class="box box-primary">--}}
-                    {{--<div class="box-body box-profile">--}}
-                        {{--@if(file_exists('img/userImages/'.$user->username.'.jpg'))--}}
-                            {{--<img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/{{$user->username}}.jpg" alt="{{ $user->name }}">--}}
-                        {{--@else--}}
-                            {{--<img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">--}}
-                        {{--@endif--}}
-                        {{--<h3 class="profile-username text-center">{{ $user->name }}</h3>--}}
-                        {{--<p class="text-muted text-center">{{ $user->position }}</p>--}}
-
-                        {{--<ul class="list-group list-group-bordered">--}}
-                            {{--<li class="list-group-item">--}}
-                                {{--<a href="mailto:{{ $user->email }}">{{ $user->email }}</a>--}}
-                            {{--</li>--}}
-                            {{--<li class="list-group-item">--}}
-                                {{--<b>Interno: </b> {{ $user->ext }}--}}
-                            {{--</li>--}}
-                            {{--<li class="list-group-item">--}}
-                                {{--<a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>--}}
-                                {{-----}}
-                                {{--<a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>--}}
-                            {{--</li>--}}
-                        {{--</ul>--}}
-                    {{--</div>--}}
-                    {{--<!-- /.box-body -->--}}
-                {{--</div>--}}
-                <!-- /.box -->
-
                 <!-- About Me Box -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -239,7 +211,7 @@
                             <input type="text" v-show="editing" id="ext" v-model="ext" class="form-control">
                         </div>
                         <button v-show="!editing" @click.prevent="edit" class="center-block btn btn-primary">Edición Rápida</button>
-                        <button v-show="editing" @click.prevent="save" class="center-block btn btn-primary">Guardar!</button>
+                        <button v-show="editing" @click.prevent="save" class="center-block btn btn-primary">Guardar</button>
                     </form>
                 </div>
                 <!-- /.box-body -->
