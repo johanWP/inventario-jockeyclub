@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader_title')
-    Detalles de {{ $user->name }} 1
+    Detalles de {{ $user->name }}
 @endsection
 
 @section('main-content')
@@ -23,6 +23,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+                    @if($user->inventario->count() > 0)
                         <ul class="list-unstyled">
                         @foreach($user->inventario as $equipo)
                             <li><a href="/equipos/{{ $equipo->id }}">{{ $equipo->marca }} {{ $equipo->modelo }}</a></li>
@@ -30,6 +31,9 @@
                         </ul>
                         <hr>
                         <p><a href="/movimientos/create" class="btn btn-primary">Asignar Nuevo Equipo</a></p>
+                    @else
+                        <p class="text-center text-muted">No tiene equipos asignados</p>
+                    @endif
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -172,6 +176,7 @@
             $('#textarea').wysihtml5();
 
             $('#sendEmail').on('click', function () {
+                swal("Here's a message!")
                 //TODO:  Enviar el email
             });
         })
@@ -186,33 +191,47 @@
                     @else
                         <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">
                     @endif
-                    <h3 v-show="!editing" v-model="name" class="profile-username text-center">@{{ name }}</h3>
-                    <input type="text" v-show="editing" v-model="name"  class="form-control" style="margin-top: 2em">
-
-                    <p class="text-muted text-center" v-show="!editing" v-model="position">@{{ position }}</p>
-                    <input type="text" v-show="editing" v-model="position"  class="form-control">
-
-                    <form action="frmUserDetails">
+                    <form action="frmUserDetails" v-show="editing">
                         <div class="form-group">
-                            <input v-model="email" v-show="editing" type="text" id="email" class="form-control">
-                            <ul class="list-group" v-show="!editing" >
-                                <li class="list-group-item" style="border: none">
-                                    <a href="#">@{{ email }}</a>
-                                </li>
-                                <li class="list-group-item"  style="border: none">
-                                    <span v-model="ext" ><b>Interno: </b> @{{ ext }}</span>
-                                </li>
-                                <li class="list-group-item"  style="border: none">
-                                    <a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>
-                                    -
-                                    <a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>
-                                </li>
-                            </ul>
+                            <input type="text" v-show="editing" v-model="name"  class="form-control" style="margin-top: 2em">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" v-show="editing" v-model="position"  class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input v-model="email" v-show="editing" type="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <input type="text" v-show="editing" id="ext" v-model="ext" class="form-control">
                         </div>
-                        <button v-show="!editing" @click.prevent="edit" class="center-block btn btn-primary">Edición Rápida</button>
-                        <button v-show="editing" @click.prevent="save" class="center-block btn btn-primary">Guardar</button>
+                        <div class="col-xs-6">
+                            <button @click.prevent="edit" class="center-block btn btn-default">Cancelar</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button @click.prevent="save" class="center-block btn btn-primary">Guardar</button>
+                        </div>
+
+
                     </form>
+                        <h3 v-show="!editing" v-model="name" class="profile-username text-center">@{{ name }}</h3>
+                        <p class="text-muted text-center" v-show="!editing" v-model="position">@{{ position }}</p>
+                        <ul class="list-group" v-show="!editing" >
+                            <li class="list-group-item" style="border: none">
+                                <a href="#">@{{ email }}</a>
+                            </li>
+                            <li class="list-group-item"  style="border: none">
+                                <span v-model="ext" ><b>Interno: </b> @{{ ext }}</span>
+                            </li>
+                            <li class="list-group-item"  style="border: none">
+                                <a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>
+                                -
+                                <a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>
+                            </li>
+                        </ul>
+
+                    <button v-show="!editing" @click.prevent="edit" class="center-block btn btn-primary">Edición Rápida</button>
+
+
                 </div>
                 <!-- /.box-body -->
             </div>

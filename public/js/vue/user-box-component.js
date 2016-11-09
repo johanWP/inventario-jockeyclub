@@ -37,12 +37,16 @@ Vue.component ( 'user_box', {
                 } );
         }
     },
+    computed: {
+        has_error: function ( error ) {
 
+        }
+    },
     created: function () {
         this.user_id = JSON.parse ( this.user_id );
         vm = this;
         $.ajax ( "/api/getUserDetails/" + this.user_id )
-            .done ( function ( data ) {
+            .done ( function ( data, msg ) {
                 vm.name = data.name;
                 vm.email = data.email;
                 vm.position = data.position;
