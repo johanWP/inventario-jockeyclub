@@ -67,6 +67,17 @@ class ApiController extends Controller
         $user = User::find( $request->user_id );
         if ( $user )
         {
+            $rules = [
+                'name'      => 'required|max:200',
+                'position'  => 'string|max:100',
+                'email'     => 'email',
+                'ext'       => 'digits:4',
+            ];
+
+            // si falla la validación, el proceso aborta y devuelve error 422
+            $this->validate($request, $rules);
+
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->position = $request->position;

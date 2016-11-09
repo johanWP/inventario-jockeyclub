@@ -26,11 +26,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('/plugins/sweetalert/sweetalert.css') }}">
     <script type="javascript" src="{{ asset('/plugins/sweetalert/sweetalert.min.js') }}"></script>
-
-    @if (Auth::check())
+@if (Auth::check())
+        <link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-    @endif
+@endif
 </head>

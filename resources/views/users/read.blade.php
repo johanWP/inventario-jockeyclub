@@ -182,7 +182,6 @@
         })
 
     </script>
-
     <script type="x-template" id="user_box-template">
             <div class="box box-primary">
                 <div class="box-body box-profile">
@@ -192,6 +191,7 @@
                         <img style="margin: 0 auto; width: 96px; height: 96px" class="profile-user-img img-responsive img-circle" src="/img/userImages/drand.jpg" alt="{{ $user->name }}">
                     @endif
                     <form action="frmUserDetails" v-show="editing">
+                        <p class="text-danger text-center">@{{ error }}</p>
                         <div class="form-group">
                             <input type="text" v-show="editing" v-model="name"  class="form-control" style="margin-top: 2em">
                         </div>

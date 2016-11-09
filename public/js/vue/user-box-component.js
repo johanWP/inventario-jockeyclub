@@ -6,7 +6,8 @@ Vue.component ( 'user_box', {
             name: '',
             email: '',
             position: '',
-            ext: ''
+            ext: '',
+            error: ''
         }
     },
     props: [ 'user_id', 'csrf' ],
@@ -16,7 +17,6 @@ Vue.component ( 'user_box', {
         },
 
         save: function () {
-            // alert('name: ' + this.name + ', email: ' + this.email + ', position: ' + this.position + ', ext: ' + this.ext);
             vm = this;
             $.ajax ({
                 headers: {
@@ -27,19 +27,14 @@ Vue.component ( 'user_box', {
                 data: { user_id: vm.user_id, name: vm.name, email: vm.email, position: vm.position, ext: vm.ext }
             })
                 .done ( function ( data ) {
-                    // alert('ok');
-                } )
-                .fail ( function () {
-                    alert ( "error" );
-                } )
-                .always( function (  ) {
-                    vm.editing = false;
-                } );
-        }
-    },
-    computed: {
-        has_error: function ( error ) {
 
+                } )
+                .fail ( function (data) {
+                    var errors = data.responseJSON;
+                    $.each(errors, function (index, value) {
+                        vm.error = value[0];
+                    });
+                });
         }
     },
     created: function () {
