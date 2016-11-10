@@ -25,8 +25,6 @@ class AuthController extends Controller
     protected $username = 'username';
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {

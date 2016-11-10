@@ -22,6 +22,9 @@ class AreaTest extends TestCase
             'created_at', 'updated_at', 'deleted_at'
         ];
 
+//    private $email;
+
+
     /**
      * Test para verificar la existencia de la tabla Professionals para profesionales (cuidadores, jockeys, etc.).
      *

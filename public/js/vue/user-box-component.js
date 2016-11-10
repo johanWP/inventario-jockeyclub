@@ -27,7 +27,7 @@ Vue.component ( 'user_box', {
                 data: { user_id: vm.user_id, name: vm.name, email: vm.email, position: vm.position, ext: vm.ext }
             })
                 .done ( function ( data ) {
-
+                    vm.editing = false;
                 } )
                 .fail ( function (data) {
                     var errors = data.responseJSON;
