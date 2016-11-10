@@ -32,7 +32,7 @@ class AssetController extends Controller
      */
     public function create()
     {
-        $types = \App\Type::orderBy('name')->get()->lists('name','id');
+        $types = \App\Type::orderBy('name')->get()->pluck('name','id');
         $selectedType = null;
         return view('assets.create', compact('types', 'selectedType'));
     }
@@ -99,7 +99,7 @@ class AssetController extends Controller
     public function edit($id)
     {
         $asset = Asset::findOrFail($id);
-        $types = \App\Type::orderBy('name')->get()->lists('name','id');
+        $types = \App\Type::orderBy('name')->get()->pluck('name','id');
         $selectedType = $asset->type_id;
         return view('assets.edit', compact('asset','types', 'selectedType'));
     }

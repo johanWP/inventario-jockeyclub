@@ -102,7 +102,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $selectedSector = $user->area->sector->id;
         $sectors = Sector::lists('name', 'id');
-        $areas = Area::where('sector_id', $selectedSector)->get()->lists('name', 'id');
+        $areas = Area::where('sector_id', $selectedSector)->get()->pluck('name', 'id');
         return view('users.edit', compact('areas','sectors', 'selectedArea', 'selectedSector', 'user'));
     }
 

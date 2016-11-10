@@ -30,7 +30,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $sector = Sector::orderby('name')->get()->lists('name', 'id');
+        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
         $selectedSector = null;
         return view('areas.create', compact('sector', 'selectedSector'));
     }
@@ -77,7 +77,7 @@ class AreaController extends Controller
     public function edit($id)
     {
         $area = Area::findOrFail($id);
-        $sector = Sector::orderby('name')->get()->lists('name', 'id');
+        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
         $selectedSector = $area->sector->id;
         return view('areas.edit', compact('area','sector', 'selectedSector'));
     }

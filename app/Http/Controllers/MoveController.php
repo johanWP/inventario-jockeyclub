@@ -32,9 +32,9 @@ class MoveController extends Controller
     {
         $selectedOrigen = null;
         $selectedDestino = null;
-        $users = \App\User::orderBy('name')->lists('name', 'id');
+        $users = \App\User::orderBy('name')->pluck('name', 'id');
         $selectedAsset = null;
-        $assets = \App\Asset::orderBy('serial')->lists('serial', 'id');
+        $assets = \App\Asset::orderBy('serial')->pluck('serial', 'id');
         return view('moves.create', compact('users', 'selectedOrigen','selectedDestino', 'assets', 'selectedAsset'));
     }
 
