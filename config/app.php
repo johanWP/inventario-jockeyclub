@@ -176,6 +176,8 @@ return [
 
         Barryvdh\Snappy\ServiceProvider::class,
 
+        /* Spatie Backup https://docs.spatie.be/laravel-backup/v3/ */
+        Spatie\Backup\BackupServiceProvider::class,
     ],
 
     /*
