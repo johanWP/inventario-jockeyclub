@@ -8,8 +8,7 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('/js/app.min.js') }}" type="text/javascript"></script>
 <!-- DataTables -->
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
 <script src="{{ asset('/js/vue2-0-5.js') }}" type="text/javascript"></script>
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.common.js"></script>--}}
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.runtime.js"></script>--}}

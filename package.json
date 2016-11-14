@@ -1,7 +1,11 @@
 {
   "private": true,
   "devDependencies": {
-    "gulp": "^3.8.8"
+    "gulp": "^3.8.8",
+    "laravel-elixir-vue": "^0.1.4",
+    "laravel-elixir-webpack-official": "^1.0.2",
+    "lodash": "^4.14.0",
+    "vue": "^2.0.5"
   },
   "dependencies": {
     "laravel-elixir": "^4.0.0",

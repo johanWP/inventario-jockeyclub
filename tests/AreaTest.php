@@ -22,8 +22,10 @@ class AreaTest extends TestCase
             'created_at', 'updated_at', 'deleted_at'
         ];
 
-//    private $email;
 
+    public function __construct() {
+//        $this->email = 'area_'.rand(1, 9999).'@mail.com';
+    }
 
     /**
      * Test para verificar la existencia de la tabla Professionals para profesionales (cuidadores, jockeys, etc.).
@@ -50,12 +52,13 @@ class AreaTest extends TestCase
     public function testAddArea()
     {
         $johan = App\User::find(5);
+        $num = rand(1111, 9999);
         $this->actingAs($johan)
             ->visit('/areas/create')
-            ->type('Area de Test', 'name')
+            ->type('Area de Test ' . $num, 'name')
             ->type('Esta es una descripción de pruebas', 'description')
-            ->type('area_'.rand(1, 9999).'@mail.com', 'email')
-            ->type('1234'.rand(8888, 9999), 'fax')
+            ->type('area_'. $num . '@mail.com', 'email')
+            ->type('1234'. $num, 'fax')
             ->select('1', 'sector_id')
             ->press('Incluir área')
             ->see('El área se creó con éxito.');
@@ -64,12 +67,12 @@ class AreaTest extends TestCase
     public function testEditArea()
     {
         $johan = App\User::find(5);
-        $area = App\Area::where('name', 'Area de Test')->first();
+        $area = App\Area::orderBy('id', 'DESC')->first();
         $this->actingAs($johan)
             ->visit('/areas/'.$area->id.'/edit')
-            ->type('Area de Test modificada', 'name')
+            ->type($area->name. ' modificada', 'name')
             ->type('Esta es una descripción de pruebas modificado', 'description')
-            ->type('area_'.rand(1, 9999).'@mail.com', 'email')
+            ->type($area->email . '.ar', 'email')
             ->type('1234'.rand(8888, 9999), 'fax')
             ->select('1', 'sector_id')
             ->press('Actualizar área')

@@ -1,21 +1,23 @@
 <head>
-    <script src="{{ asset('/plugins/jQuery/jQuery-3.1.0.min.js') }}"></script>
+{{--    <script src="{{ asset('/plugins/jQuery/jQuery-3.1.0.min.js') }}"></script>--}}
+    <script src="{{ asset('/js/all.js') }}"></script>
     <meta charset="UTF-8">
     <title> Jockey Club AC - @yield('htmlheader_title', 'Inventario') </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/all.css') }}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    {{--<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />--}}
     <!-- Theme style -->
     <link href="{{ asset('/css/AdminLTE.css') }}" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link href="{{ asset('/css/skins/skin-green.css') }}" rel="stylesheet" type="text/css" />
+{{--    <link href="{{ asset('/css/skins/skin-green.css') }}" rel="stylesheet" type="text/css" />--}}
     <!-- iCheck -->
     <link href="{{ asset('/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
 
@@ -26,10 +28,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('/plugins/sweetalert/sweetalert.css') }}">
-    <script type="javascript" src="{{ asset('/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    {{--<link rel="stylesheet" href="{{ asset('/plugins/sweetalert/sweetalert.css') }}">--}}
+    {{--<script type="javascript" src="{{ asset('/plugins/sweetalert/sweetalert.min.js') }}"></script>--}}
 @if (Auth::check())
-        <link rel="stylesheet" href="{{ asset('/plugins/datatables/dataTables.bootstrap.css') }}">
+        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 @endif
 </head>

@@ -2206,16 +2206,16 @@
         },
         {
             "name": "pusher/pusher-php-server",
-            "version": "v2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pusher/pusher-http-php.git",
-                "reference": "cdc11530c6f97eab76850d8ead6c513eeeccc37a"
+                "reference": "dce77cc06669c634044723f9db0d682474f4d803"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/cdc11530c6f97eab76850d8ead6c513eeeccc37a",
-                "reference": "cdc11530c6f97eab76850d8ead6c513eeeccc37a",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/dce77cc06669c634044723f9db0d682474f4d803",
+                "reference": "dce77cc06669c634044723f9db0d682474f4d803",
                 "shasum": ""
             },
             "require": {
@@ -2246,7 +2246,7 @@
                 "rest",
                 "trigger"
             ],
-            "time": "2016-08-23 09:07:29"
+            "time": "2016-11-11 10:32:50"
         },
         {
             "name": "simplesoftwareio/simple-qrcode",
