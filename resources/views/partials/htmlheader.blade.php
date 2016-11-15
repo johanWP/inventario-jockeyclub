@@ -34,5 +34,6 @@
         <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link href="{{ asset('/plugins/fine-uploader/fine-uploader-new.min.css') }}">
 @endif
 </head>

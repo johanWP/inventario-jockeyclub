@@ -52,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('movimientos', 'MoveController');
 //    Route::get('papelera/', 'TrashController@index');
     Route::get('/pdf/guia', 'PdfController@getUsers');
+    Route::get('/import/avaya', 'ImportController@avaya');
+    Route::post('/import/avaya', 'ImportController@importAvaya');
 });
 
 Route::group(['middleware' => 'api'], function () {
