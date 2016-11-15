@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ImportAvaya;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -28,11 +29,9 @@ class ImportController extends Controller
     public function importAvaya(Request $request)
     {
         $myfile = Input::file('file');
-//
         $name = Carbon::now()->secondsUntilEndOfDay() . '_' . $myfile->getClientOriginalName();
         $result = Storage::disk('local')->put($name, File::get($myfile));
         if ($result) {
-//            session()->flash('flash_message', 'Se importaron correctamente los artículos nuevos.');
             $total = $this->insertAvayaData($name);
             flash('El archivo se subió con éxito y se está procesando.  '.
                 $total['total'] .' contactos estarán disponibles pronto. '. $total['error'] . ' tuvieron errores.',
@@ -57,9 +56,7 @@ class ImportController extends Controller
                 {
                     if ( (int)$data[0] ) {
                         $total++;
-                        $phone = Phone::firstOrNew(['number' => $data[0]]);
-                        $phone->place = $data[4];
-                        $phone->save();
+                        $this->dispatch(new ImportAvaya($data));
                     } else {
                         $error++;
                         Activity::log('Importación de Avaya: ' . $data[0] . ' de ' . $data[4] . ' no es un número.');
@@ -79,20 +76,6 @@ class ImportController extends Controller
         $totales = array();
         $totales['total'] = $total; $totales['error'] = $error;
         return $totales;
-    }
-
-    private function insertOrUpdateAvayaRecord(Array $data)
-    {
-        $phone = Phone::where('number', $data[0])->first();
-        if( $phone != null )
-        {
-            $phone = new Phone();
-            $phone->number = $data[0];
-            $phone->place = $data[4];
-            $phone->save();
-        } else {
-            $phone->place = $data[4];
-        }
     }
 
 }
