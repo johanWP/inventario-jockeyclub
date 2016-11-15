@@ -30,10 +30,9 @@
     <!-- DataTables -->
     {{--<link rel="stylesheet" href="{{ asset('/plugins/sweetalert/sweetalert.css') }}">--}}
     {{--<script type="javascript" src="{{ asset('/plugins/sweetalert/sweetalert.min.js') }}"></script>--}}
-@if (Auth::check())
-        <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    @if (Auth::check())
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link href="{{ asset('/plugins/fine-uploader/fine-uploader-new.min.css') }}">
 @endif
 </head>

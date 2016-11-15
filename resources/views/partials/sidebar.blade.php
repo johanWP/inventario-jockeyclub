@@ -66,6 +66,20 @@
             </li>
 
             <li class="treeview">
+                <a href="#"><i class='fa fa-pie-chart'></i> <span>Sectores</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/sectores/create">Crear nuevo</a></li>
+                    <li><a href="/sectores">Ver Todos</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class='fa fa-phone'></i> <span>Directorio Telefónico</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/avaya/import">Importar</a></li>
+                    <li><a href="/directorio" target="_blank">Ver Directorio</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
                 <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/usuarios/create">Crear nuevo</a></li>
@@ -73,14 +87,7 @@
                 </ul>
             </li>
 
-            <li class="treeview">
-                <a href="#"><i class='fa fa-pie-chart'></i> <span>Sectores</span> <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="/sectores/create">Crear nuevo</a></li>
-                    <li><a href="/sectores">Ver Todos</a></li>
-                </ul>
-            </li>
-            <li><a href="/papelera"><i class='fa fa-trash'></i> <span>Papelera</span></a></li>
+            {{--<li><a href="/papelera"><i class='fa fa-trash'></i> <span>Papelera</span></a></li>--}}
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

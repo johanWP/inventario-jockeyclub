@@ -24,6 +24,7 @@ Route::get('registro', function () {
 Route::get('login', function () {
     return view('auth.login');
 });
+Route::get('directorio', 'AvayaController@index');
 
 
 Route::get('proveedores', ['as' => 'proveedores', 'middleware'=>'roles', 'roles'=>['Proveedor'], function () {
@@ -52,8 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('movimientos', 'MoveController');
 //    Route::get('papelera/', 'TrashController@index');
     Route::get('/pdf/guia', 'PdfController@getUsers');
-    Route::get('/import/avaya', 'ImportController@avaya');
-    Route::post('/import/avaya', 'ImportController@importAvaya');
+    Route::get('/avaya/import', 'AvayaController@getFile');
+    Route::post('/avaya/import', 'AvayaController@importAvaya');
 });
 
 Route::group(['middleware' => 'api'], function () {
