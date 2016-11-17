@@ -24,6 +24,7 @@ class ImportAvaya extends Job implements ShouldQueue
     {
         $this->data = $data;
         $this->location = $location;
+        
     }
 
     /**

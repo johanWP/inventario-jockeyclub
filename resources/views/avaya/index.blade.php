@@ -20,6 +20,7 @@
                         <tr>
                             <th>Número Interno</th>
                             <th>Asignado a</th>
+                            <th>Ubicación</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,6 +28,7 @@
                             <tr>
                                 <td>{{ $phone->number }}</td>
                                 <td>{{ $phone->place }}</td>
+                                <td>{{ $phone->location }}</td>
                             </tr>
                         @endforeach
                         </tbody>
