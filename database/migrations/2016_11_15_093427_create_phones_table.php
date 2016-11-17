@@ -16,6 +16,7 @@ class CreatePhonesTable extends Migration
             $table->increments('id');
             $table->string('number', 15)->unique();
             $table->string('place', 100);
+            $table->string('location', 100);
             $table->timestamps();
         });
     }

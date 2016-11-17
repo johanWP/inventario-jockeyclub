@@ -50,7 +50,7 @@ class AvayaController extends Controller
         $name = Carbon::now()->secondsUntilEndOfDay() . '_' . $myfile->getClientOriginalName();
         $result = Storage::disk('local')->put($name, File::get($myfile));
         if ($result) {
-            $total = $this->insertAvayaData($name);
+            $total = $this->insertAvayaData($name, $request->location);
             flash('El archivo se subió con éxito y se está procesando.  ' .
                 $total['total'] . ' contactos estarán disponibles pronto. ' . $total['error'] . ' tuvieron errores.',
                 'info')
@@ -67,7 +67,7 @@ class AvayaController extends Controller
      * @param $filename
      * @return array
      */
-    private function insertAvayaData($filename)
+    private function insertAvayaData($filename, $location)
     {
         $fullPath = storage_path() . '\\app\\' . $filename;
         if (($handle = fopen($fullPath, 'r')) !== FALSE) {
@@ -79,7 +79,7 @@ class AvayaController extends Controller
                 try {
                     if ((int)$data[0]) {
                         $total++;
-                        $this->dispatch(new ImportAvaya($data));
+                        $this->dispatch(new ImportAvaya($data, $location));
                     } else {
                         $error++;
                         Activity::log('Importación de Avaya: ' . $data[0] . ' de ' . $data[4] . ' no es un número.');

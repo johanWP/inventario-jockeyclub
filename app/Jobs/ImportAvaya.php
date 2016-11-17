@@ -13,14 +13,17 @@ class ImportAvaya extends Job implements ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     protected $data;
+    protected $location;
+
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * ImportAvaya constructor.
+     * @param $data Array de datos que viene del archivo .CVS
+     * @param $location String que se escribe en el textbox
      */
-    public function __construct($data)
+    public function __construct($data, $location)
     {
         $this->data = $data;
+        $this->location = $location;
     }
 
     /**
@@ -32,6 +35,7 @@ class ImportAvaya extends Job implements ShouldQueue
     {
         $phone = Phone::firstOrNew(['number' => $this->data[0]]);
         $phone->place = $this->data[4];
+        $phone->location = $this->location;
         $phone->save();
     }
 }
