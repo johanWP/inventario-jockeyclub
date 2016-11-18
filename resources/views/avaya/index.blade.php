@@ -51,8 +51,10 @@
             "autoWidth": false,
             "language": {
                 processing: "Espera...",
-                search: "Buscar&nbsp;:",
+                search: "Buscar:&nbsp;",
                 info:   "Mostrando registros _START_ a _END_ de _TOTAL_ en total",
+                zeroRecords: "No hay resultados de la búsqueda",
+                infoFiltered:   "(filtrado de _MAX_ registros en total)",
                 paginate: {
                     first: "Primero",
                     previous: "Anterior",
