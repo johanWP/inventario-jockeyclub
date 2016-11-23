@@ -78,7 +78,7 @@ class AvayaController extends Controller
             $error = 0;
             while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
                 try {
-                    $ocultos = ['4114', '4118', '4119', '4121', '4136'];
+                    $ocultos = ['4114', '4118', '4119', '4121', '4124', '4136', '4292'];
                     // No incluir los números restringidos
                     Log::info('Numero: '. $data[0] . '-> '. array_search($data[0], $ocultos));
                     if ( array_search($data[0], $ocultos) === false)
