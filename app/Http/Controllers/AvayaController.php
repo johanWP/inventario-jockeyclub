@@ -13,6 +13,7 @@ use Activity;
 use App\Phone;
 use Illuminate\Database\QueryException;
 use App\Jobs\ImportAvaya;
+use Illuminate\Support\Facades\Log;
 
 class AvayaController extends Controller
 {
@@ -77,12 +78,18 @@ class AvayaController extends Controller
             $error = 0;
             while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
                 try {
-                    if ((int)$data[0]) {
-                        $total++;
-                        $this->dispatch(new ImportAvaya($data, $location));
-                    } else {
-                        $error++;
-                        Activity::log('Importación de Avaya: ' . $data[0] . ' de ' . $data[4] . ' no es un número.');
+                    $ocultos = ['4114', '4118', '4119', '4121', '4136'];
+                    // No incluir los números restringidos
+                    Log::info('Numero: '. $data[0] . '-> '. array_search($data[0], $ocultos));
+                    if ( array_search($data[0], $ocultos) === false)
+                    {
+                        if ( (int)$data[0] ) {
+                            $total++;
+                            $this->dispatch(new ImportAvaya($data, $location));
+                        } else {
+                            $error++;
+                            Activity::log('Importación de Avaya: ' . $data[0] . ' de ' . $data[4] . ' no es un número.');
+                        }
                     }
                 } catch (QueryException $e) {
                     $errorCode = $e->errorInfo[1];
