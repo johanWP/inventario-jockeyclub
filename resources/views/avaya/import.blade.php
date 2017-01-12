@@ -28,7 +28,7 @@
                             {{ Form::text('location', '' , ['id' => 'location', 'class' => 'form-control', 'placeholder' => 'Escriba la ubicación...', 'required' => 'required']) }}
                         </div>
                         <div class="form-group col-sm-4" id="divFile">
-                            {{ Form::label('file','Seleccione: ',array('id'=>'','class'=>'')) }}
+                            {{ Form::label('file','Seleccione: ', ['id'=>'','class'=>'']) }}
                             <p class="text-muted">Únicamente archivos con extensión <em>.csv</em></p>
                             <input type="file" name="file" id="file" accept="csv">
                         </div>
