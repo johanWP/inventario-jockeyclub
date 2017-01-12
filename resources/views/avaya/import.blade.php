@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader_title')
-    Importar archivo CSV Avaya
+    Importar Archivo CSV Avaya
 @endsection
 
 @section('main-content')
@@ -14,7 +14,7 @@
         <div class="col-md-11">
             @include('flash::message')
             <div class="panel panel-default">
-                <div class="panel-heading">Importar listado Avaya</div>
+                <div class="panel-heading">Importar Listado Avaya</div>
                 <div class="panel-body">
                     <div id="loading" class="text-center">
                         <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
@@ -30,7 +30,7 @@
                         <div class="form-group col-sm-4" id="divFile">
                             {{ Form::label('file','Seleccione: ',array('id'=>'','class'=>'')) }}
                             <p class="text-muted">Únicamente archivos con extensión <em>.csv</em></p>
-                            {{ Form::file('file','',array('id'=>'file','class'=>'form-control')) }}
+                            <input type="file" name="file" id="file" accept="csv">
                         </div>
                         <div class="form-group col-sm-4" style="padding-top: 3em">
                             {{ Form::reset('Reset', ['class' => 'btn btn-default']) }}
