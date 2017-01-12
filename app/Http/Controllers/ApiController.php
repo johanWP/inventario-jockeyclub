@@ -41,6 +41,7 @@ class ApiController extends Controller
     public function getNextSerial($type_id)
     {
         $nextId = (count(Asset::where('type_id', $type_id)->withTrashed()->get()) + 1);
+        $nextId = str_pad($nextId, 5, '0', STR_PAD_LEFT);
         $nextSerial = Type::find($type_id)->prefix . '-' . $nextId;
         return $nextSerial;
     }

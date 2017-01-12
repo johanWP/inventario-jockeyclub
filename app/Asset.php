@@ -84,4 +84,6 @@ class Asset extends Model implements LogsActivityInterface
         }
         return '';
     }
+
+
 }

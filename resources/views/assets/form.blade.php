@@ -51,7 +51,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             {!! Form::label('serial', 'Serial:') !!}
-            {!! Form::text('serial', null, ['class'=>'form-control']) !!}
+            {!! Form::text('serial', null, ['class'=>'form-control', 'readonly' => 'readonly']) !!}
         </div>
     </div>
     <div class="col-sm-6">
