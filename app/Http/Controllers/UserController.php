@@ -178,7 +178,7 @@ class UserController extends Controller
     }
 
     /**
-     * Copia
+     * Sube el archivo .csv de usuarios e importa Sectores, Áreas y Usuarios
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -204,6 +204,12 @@ class UserController extends Controller
         return redirect('/usuarios');
     }
 
+    /**
+     * Recibe el nombre del archivo subido a /storage/app
+     * devuelve un mensaje de error o el número de usuarios
+     * @param $filename
+     * @return null|string
+     */
     private function insertImportedUsers($filename)
     {
         $msg = null;
