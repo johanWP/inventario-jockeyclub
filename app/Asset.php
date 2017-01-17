@@ -14,8 +14,8 @@ class Asset extends Model implements LogsActivityInterface
 
     protected $table = 'assets';
     protected $fillable = [
-        'serial', 'marca', 'modelo', 'fechaCompra', 'precio',
-        'nota', 'status', 'user_id', 'type_id'
+        'serial', 'marca', 'modelo', 'fechaCompra', 'precio', 'nota', 'status', 'user_id', 'type_id', 
+        'sistema_operativo', 'disco_duro', 'procesador', 'motherboard'
     ];
     protected $dates = ['fechaCompra'];
 

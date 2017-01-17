@@ -11,6 +11,11 @@ use DB;
 use Intervention\Image\Facades\Image;
 use App\User;
 use App\Sector;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -162,4 +167,109 @@ class UserController extends Controller
         }
         return redirect('usuarios');
     }
+
+    /**
+     * Devuele la vista con el formulario para importar usuarios desde archivo .CSV
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showImportForm()
+    {
+        return view('users.import');
+    }
+
+    /**
+     * Copia
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function importUsers(Request $request)
+    {
+        $myfile = Input::file('file');
+        $filename = Carbon::now()->secondsUntilEndOfDay() . '_' . $myfile->getClientOriginalName();
+        $result = Storage::disk('local')->put($filename, File::get($myfile));
+        if ($result) {
+            $insert = $this->insertImportedUsers($filename);
+            if(is_numeric($insert))
+            {
+                flash('Se insertaron ' . $insert . ' registros.', 'success');
+            } else {
+                flash($insert, 'danger')->important();
+            }
+
+        } else {
+            flash('Ha ocurrido un error al subir el archivo. 
+                    Intentelo de nuevo más tarde o reporte el error.', 'danger')->important();
+        }
+
+        return redirect('/usuarios');
+    }
+
+    private function insertImportedUsers($filename)
+    {
+        $msg = null;
+        $fullPath = storage_path() . '\\app\\' . $filename;
+        if (($handle = fopen($fullPath, 'r')) !== FALSE)
+        {
+            $total = 0;
+            $sectorActual = new Sector();
+            $areaActual = new Area();
+            while (($data = fgetcsv($handle, 1000, ';')) !== FALSE)
+            {
+                try
+                {
+                    $sector     = ucwords(strtolower(trim(utf8_encode($data[0]))));
+                    $area       = ucwords(strtolower(trim(utf8_encode($data[1]))));
+                    $cargo      = ucwords(strtolower(trim(utf8_encode($data[2]))));
+                    $apellido   = ucwords(strtolower(trim(utf8_encode($data[3]))));
+                    $nombre     = ucwords(strtolower(trim(utf8_encode($data[4]))));
+                    $ext        = $data[5];
+                    $email      = $data[6];
+                    $emailArea  = $data[7];
+
+                    if ($sector <> $sectorActual->name)
+                    {
+                        $sectorActual = Sector::firstOrNew(['name' => $sector]);
+                        $sectorActual->save();
+                    }
+
+                    if ($area <> $areaActual->name)
+                    {
+                        $areaActual = Area::firstOrNew(['name' => $area]);
+                        $areaActual->sector_id = $sectorActual->id;
+                        $areaActual->email = $emailArea;
+                        $areaActual->save();
+                    }
+
+                    if(!empty($email))
+                    {
+                        $user = User::firstOrNew(['name' => $nombre, 'last_name' => $apellido]);
+                        $user->username = $nombre[0] . $apellido;
+                        $user->email = $email;
+                        $user->position = ucwords(strtolower($cargo));
+                        $user->ext = $ext;
+                        $user->user_type = 'U';
+                        $user->password = bcrypt('secret');
+                        $user->area_id = $areaActual->id;
+                        $user->save();
+                        $total++;
+                    }
+
+
+                } catch (QueryException $e) {
+                    $errorCode = $e->errorInfo[1];
+                    if ($errorCode == 1062) {
+                        $msg = 'Registro duplicado: ' . $user->name . ' ' . $user->last_name;
+                    } else {
+                        $msg ='Ocurrió un error al importar los usuarios';
+                    }
+
+                }
+            }
+            fclose($handle);
+        }
+
+        empty($msg) ?  $result = $total : $result = $msg;
+        return $msg;
+    }
+
 }

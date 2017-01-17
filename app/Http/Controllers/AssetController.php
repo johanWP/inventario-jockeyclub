@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Asset;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -34,7 +34,37 @@ class AssetController extends Controller
     {
         $types = \App\Type::orderBy('name')->get()->pluck('name','id');
         $selectedType = null;
-        return view('assets.create', compact('types', 'selectedType'));
+        $sistemas_operativos = DB::select("select id, valor from pc_caracteristicas where tipo = 'sistema_operativo'");
+dd($sistemas_operativos);
+        $selectedSistema_operativo = null;
+
+        $discos_duros = [
+            'Seagate 500GB' => 'Seagate 500GB',
+            'Western Digital 500GB' => 'Western Digital 500GB',
+            'Seagate 1TB' => 'Seagate 1TB',
+            'Western Digital 1TB' => 'Western Digital 1TB',
+        ];
+        $selectedDisco_duro = null;
+
+        $procesadores = [
+            'Intel Core i3' => 'Intel Core i3',
+            'Intel Core i5' => 'Intel Core i5',
+            'Intel Core i7' => 'Intel Core i7',
+        ];
+        $selectedProcesador = null;
+
+        $motherboards = [
+            'Modelo 1' => 'Modelo 1',
+            'Modelo 2' => 'Modelo 2',
+            'Modelo 3' => 'Modelo 3',
+            'Modelo 4' => 'Modelo 4',
+        ];
+        $selectedMotherboard = null;
+
+        return view('assets.create', compact('types', 'selectedType', 'sistemas_operativos', 'selectedSistema_operativo',
+            'discos_duros', 'selectedDisco_duro',
+            'procesadores', 'selectedProcesador',
+            'motherboards', 'selectedMotherboard'));
     }
 
     /**
@@ -54,6 +84,10 @@ class AssetController extends Controller
                 'modelo'        => 'required',
                 'serial'        => 'required',
                 'precio'        => 'numeric',
+                'sistema_operativo' => 'required_if:type_id, 3',    // requerido si el asset es un PC
+                'disco_duro'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
+                'motherboard'   => 'required_if:type_id, 3',    // requerido si el asset es un PC
+                'procesador'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
             ];
             $this->validate($request, $rules);
             $asset = new Asset();
@@ -69,6 +103,10 @@ class AssetController extends Controller
             $asset->status = 'A';
             $asset->user_id = Auth::user()->id;
             $asset->usuario_actual = $destino_por_defecto;
+            $asset->sistema_operativo = $request->sistema_operativo;
+            $asset->disco_duro = $request->disco_duro;
+            $asset->procesador = $request->procesador;
+            $asset->motherboard = $request->motherboard;
             $asset->save();
 
             $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);

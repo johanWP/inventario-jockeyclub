@@ -42,6 +42,14 @@
             @endif
             {{--<li><a href="/proveedores/"><i class='fa fa-link'></i> <span>Solo Proveedores</span></a></li>--}}
             <li class="treeview">
+                <a href="#"><i class='fa fa-pie-chart'></i> <span>Sectores</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/sectores/create">Crear nuevo</a></li>
+                    <li><a href="/sectores">Ver Todos</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
                 <a href="#"><i class='fa fa-area-chart'></i> <span>Areas</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/areas/create">Crear nueva</a></li>
@@ -66,13 +74,6 @@
             </li>
 
             <li class="treeview">
-                <a href="#"><i class='fa fa-pie-chart'></i> <span>Sectores</span> <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="/sectores/create">Crear nuevo</a></li>
-                    <li><a href="/sectores">Ver Todos</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
                 <a href="#"><i class='fa fa-phone'></i> <span>Directorio Telefónico</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/avaya/import">Importar</a></li>
@@ -83,6 +84,7 @@
                 <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/usuarios/create">Crear nuevo</a></li>
+                    <li><a href="/usuarios/import">Importar desde CSV</a></li>
                     <li><a href="/usuarios">Ver Todos</a></li>
                 </ul>
             </li>

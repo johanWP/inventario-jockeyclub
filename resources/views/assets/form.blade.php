@@ -5,10 +5,7 @@
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
                 {!! Form::text('fechaCompra', null, ['class'=>'form-control pull-right']) !!}
-
             </div>
-
-
         </div>
     </div>
     <div class="col-sm-6">
@@ -64,19 +61,44 @@
         </div>
     </div>
 </div>
-{{--<div class="row">--}}
-    {{--<div class="col-sm-6">--}}
-        {{--<div class="form-group">--}}
-            {{--{!! Form::label('user_id', 'Asignar a:') !!}--}}
-            {{--{!! Form::select('user_id', $users, $selectedUser, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}--}}
-        {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-sm-6">--}}
-    {{--</div>--}}
-{{--</div>--}}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('sistema_operativo', 'Sistema Operativo:') !!}
+            {!! Form::select('sistema_operativo', $sistemas_operativos, $selectedSistema_operativo, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('disco_duro', 'Disco Duro:') !!}
+            {!! Form::select('disco_duro', $discos_duros, $selectedDisco_duro, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('procesador', 'Procesador:') !!}
+            {!! Form::select('procesador', $procesadores, $selectedProcesador, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('motherboard', 'Motherboard:') !!}
+            {!! Form::select('motherboard', $motherboards, $selectedMotherboard, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        </div>
+    </div>
+</div>
+
+
+
+
 <div class="form-group">
     {!! Form::label('nota', 'Notas:') !!}
-    {!! Form::textarea('nota', null, ['class'=>'form-control']) !!}
+    {!! Form::textarea('nota', null, ['class'=>'form-control', 'rows'=>'2']) !!}
 </div>
 
 <div class="form-group">

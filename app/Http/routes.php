@@ -46,6 +46,8 @@ Route::get('password/email', 'Auth\PasswordController@getEmail');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', 'PagesController@home');
+    Route::get('/usuarios/import', 'UserController@showImportForm');
+    Route::post('/usuarios/import', 'UserController@ImportUsers');
     Route::resource('areas', 'AreaController');
     Route::resource('sectores', 'SectorController');
     Route::resource('usuarios', 'UserController');
