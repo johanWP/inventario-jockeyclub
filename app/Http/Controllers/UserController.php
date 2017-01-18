@@ -57,6 +57,7 @@ class UserController extends Controller
         $rules = [
             'username'  => 'required|unique:users|max:100',
             'name'      => 'required|unique:users|max:200',
+            'last_name' => 'required|unique:users|max:200',
             'position'  => 'string|max:100',
             'email'     => 'email',
             'area_id'   => 'required',
@@ -248,13 +249,16 @@ class UserController extends Controller
 
                     if(!empty($email))
                     {
-                        $user = User::firstOrNew(['name' => $nombre, 'last_name' => $apellido]);
-                        $user->username = $nombre[0] . $apellido;
+                        $username = strtolower($nombre[0]) . $apellido;
+                        $user = User::firstOrNew(['username' => $username]);
+                        $user->username = $username;
+                        $user->name = $nombre;
+                        $user->last_name = $apellido;
                         $user->email = $email;
                         $user->position = ucwords(strtolower($cargo));
                         $user->ext = $ext;
                         $user->user_type = 'U';
-                        $user->password = bcrypt('secreto');
+                        $user->password = bcrypt('secreto!!');
                         $user->area_id = $areaActual->id;
                         $user->save();
                         $total++;

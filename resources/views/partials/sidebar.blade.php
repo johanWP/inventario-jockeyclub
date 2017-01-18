@@ -84,8 +84,8 @@
                 <a href="#"><i class='fa fa-users'></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/usuarios/create">Crear nuevo</a></li>
-                    <li><a href="/usuarios/import">Importar desde CSV</a></li>
                     <li><a href="/usuarios">Ver Todos</a></li>
+                    <li><a href="/usuarios/import">Importar desde CSV</a></li>
                 </ul>
             </li>
 

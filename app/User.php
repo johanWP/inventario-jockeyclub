@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'username', 'position', 'area_id', 'ext'];
+    protected $fillable = ['name', 'last_name', 'email', 'password', 'username', 'position', 'area_id', 'ext'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -113,4 +113,8 @@ class User extends Model implements AuthenticatableContract,
             ->orderBy('id', 'DESC')->get());
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
 }

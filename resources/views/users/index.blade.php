@@ -5,8 +5,6 @@
 @endsection
 @section('contentheader_title')
     Administrar usuarios
-    <a href="/usuarios/create/" class="btn btn-primary btn-lg"><i class="ion ion-person-add"></i> Crear Nuevo</a>
-
 @endsection
 
 
@@ -20,13 +18,16 @@
                     {{--<div class="panel-heading">Usuarios</div>--}}
 
                     <div class="panel-body">
+                        <a href="/usuarios/create/" class="btn btn-primary" style="margin-bottom: -3em">
+                            <i class="ion ion-person-add"></i> Crear Nuevo
+                        </a>
                         <table class="table table-hover" id="dataTable">
                             <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Sector</th>
                                 <th>Área</th>
-                                <th>Ext</th>
+                                {{--<th>Ext</th>--}}
                                 <th>Email</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -34,10 +35,10 @@
                             <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td><a href="/usuarios/{{ $user->id }}">{{ $user->name }}</a></td>
+                                    <td><a href="/usuarios/{{ $user->id }}">{{ $user->fullName }}</a></td>
                                     <td><a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a></td>
                                     <td><a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a></td>
-                                    <td>{{ $user->ext }}</td>
+                                    {{--<td>{{ $user->ext }}</td>--}}
                                     <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                     <td align="right">
 {{--                                        <a href="usuarios/{{$user->id}}" class="btn btn-sm btn-default">Ver</a>--}}
@@ -68,7 +69,7 @@
                 "autoWidth": false,
                 "language": {
                     processing: "Espera...",
-                    search: "Buscar&nbsp;:",
+                    search: "Buscar: &nbsp;",
                     info:   "Mostrando registros _START_ a _END_ de _TOTAL_ en total",
                     paginate: {
                         first: "Primero",
