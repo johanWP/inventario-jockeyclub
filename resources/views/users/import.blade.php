@@ -16,6 +16,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Importar Listado de Usuarios</div>
                     <div class="panel-body">
+                        <p class="text-muted">Recuerde seguir el formato de <a href="/ejemplo_importar_usuarios.csv">este archivo</a>
+                         con los campos separados por <b>;</b></p>
+                        <p class="text-muted">Sector ; Area ; Cargo o Puesto ; Apellido ; Nombre ; Teléfono interno ; Email ; Email Grupal</p>
+
                         <div id="loading" class="text-center">
                             <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
                             <span class="sr-only">Loading...</span>

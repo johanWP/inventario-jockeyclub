@@ -254,7 +254,7 @@ class UserController extends Controller
                         $user->position = ucwords(strtolower($cargo));
                         $user->ext = $ext;
                         $user->user_type = 'U';
-                        $user->password = bcrypt('secret');
+                        $user->password = bcrypt('secreto');
                         $user->area_id = $areaActual->id;
                         $user->save();
                         $total++;
