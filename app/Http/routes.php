@@ -14,28 +14,24 @@
 Route::get ('/github', 'PdfController@github');
 
 Route::get('/', function () {
+    return redirect('/login');
+});
+
+Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::get('registro', function () {
-    return view('auth.register');
-});
+//Route::get('registro', function () {
+//    return view('auth.register');
+//});
 
-Route::get('login', function () {
-    return view('auth.login');
-});
 Route::get('directorio', 'AvayaController@index');
 
 
 Route::get('proveedores', ['as' => 'proveedores', 'middleware'=>'roles', 'roles'=>['Proveedor'], function () {
     return view('pages.soloProv');
 }]);
-Route::get('rolesAdmin', [
-    'as' => 'roles', 'uses' => 'RoleController@index'
-]);
-Route::post('rolesAdmin', [
-    'as' => 'roles', 'uses' => 'RoleController@update'
-]);
+
 
 Route::get('recordar', function () {
     return view('auth.reset'); // falta atrapar el error cuando no existe el token
@@ -57,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pdf/guia', 'PdfController@getUsers');
     Route::get('/avaya/import', 'AvayaController@getFile');
     Route::post('/avaya/import', 'AvayaController@importAvaya');
+    Route::get('rolesAdmin', ['as' => 'roles', 'uses' => 'RoleController@index']);
+    Route::post('rolesAdmin', ['as' => 'roles', 'uses' => 'RoleController@update']);
 });
 
 Route::group(['middleware' => 'api'], function () {

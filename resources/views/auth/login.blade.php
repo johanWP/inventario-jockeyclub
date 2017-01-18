@@ -23,11 +23,11 @@
     @endif
 
     <div class="login-box-body">
-    <p class="login-box-msg">Ingresa tu usuario y clave de Windows</p>
+    <p class="login-box-msg">Ingresa tu correo del Jockey Club</p>
     <form action="{{ url('/auth/login') }}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Nombre de usuario" name="username"/>
+            <input type="text" class="form-control" placeholder="Email del Jockey Club" name="username"/>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
