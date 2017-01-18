@@ -31,24 +31,16 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('marca', 'Marca:') !!}
             {!! Form::text('marca', null, ['class'=>'form-control']) !!}
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('modelo', 'Modelo:') !!}
             {!! Form::text('modelo', null, ['class'=>'form-control']) !!}
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-6">
-        <div class="form-group">
-            {!! Form::label('serial', 'Serial:') !!}
-            {!! Form::text('serial', null, ['class'=>'form-control', 'readonly' => 'readonly']) !!}
         </div>
     </div>
     <div class="col-sm-6">
@@ -56,28 +48,44 @@
             {!! Form::label('precio', 'Precio:') !!}
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-usd"></span></span>
-            {!! Form::text('precio', null, ['class'=>'form-control']) !!}
+                {!! Form::text('precio', null, ['class'=>'form-control']) !!}
             </div>
         </div>
+
     </div>
 </div>
-
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
+            {!! Form::label('serial_fabricante', 'Serial del Fabricante:') !!}
+            {!! Form::text('serial_fabricante', null, ['class'=>'form-control']) !!}
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('serial', 'Serial Interno:') !!}
+            {!! Form::text('serial', null, ['class'=>'form-control', 'readonly' => 'readonly']) !!}
+        </div>
+
+    </div>
+</div>
+
+<div class="row" name="pc">
+    <div class="col-sm-6">
+        <div class="form-group">
             {!! Form::label('sistema_operativo', 'Sistema Operativo:') !!}
-            {!! Form::select('sistema_operativo', $sistemas_operativos, $selectedSistema_operativo, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+            {!! Form::select('sistema_operativo', $sistemasOperativos, $selectedSistemaOperativo, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
         </div>
     </div>
 
     <div class="col-sm-6">
         <div class="form-group">
             {!! Form::label('disco_duro', 'Disco Duro:') !!}
-            {!! Form::select('disco_duro', $discos_duros, $selectedDisco_duro, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+            {!! Form::select('disco_duro', $discosDuros, $selectedDiscoDuro, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" name="pc">
     <div class="col-sm-6">
         <div class="form-group">
             {!! Form::label('procesador', 'Procesador:') !!}
@@ -102,6 +110,6 @@
 </div>
 
 <div class="form-group">
-    <a href="#" class="btn btn-default" onclick="history.back()">Volver</a>
+    <a href="#" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i> Volver</a>
     {!! Form::submit($buttonText, ['class'=>'btn btn-primary']) !!}
 </div>

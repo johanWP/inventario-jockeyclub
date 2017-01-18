@@ -1,5 +1,6 @@
 <script>
     $( document ).ready(function() {
+        $('div[name=pc]').hide()
         $('#fechaCompra').datepicker({
             autoclose: true,
             format: "dd-mm-yyyy",
@@ -16,6 +17,13 @@
                     .fail(function() {
                         alert( "error" );
                     });
+            if($(this).val() == '3')    // Si el tipo es PC
+            {
+                $('div[name=pc]').show();
+            } else {
+                $('div[name=pc]').hide();
+            }
+
         });
     });  // fin del document.ready()
 </script>

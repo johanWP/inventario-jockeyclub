@@ -5,7 +5,6 @@
 @endsection
 @section('contentheader_title')
     Listado de Equipos
-    <a href="/equipos/create/" class="btn btn-primary btn-lg"><i class="ion ion-ios-pricetag"></i> Crear Nuevo</a>
 @endsection
 
 @section('main-content')
@@ -16,6 +15,9 @@
                 <div class="panel panel-default">
                     {{--<div class="panel-heading">Áreas y Departamentos</div>--}}
                     <div class="panel-body">
+                        <a href="/equipos/create/" class="btn btn-primary" style="margin-bottom: -3em">
+                            <i class="ion ion-person-add"></i> Crear Nuevo
+                        </a>
                         <table class="table table-hover" id="dataTable">
                             <thead>
                             <tr>
@@ -64,7 +66,7 @@
                 "autoWidth": false,
                 "language": {
                     processing: "Espera...",
-                    search: "Buscar&nbsp;:",
+                    search: "Buscar: &nbsp;",
                     info:   "Mostrando registros _START_ a _END_ de _TOTAL_ en total",
                     paginate: {
                         first: "Primero",

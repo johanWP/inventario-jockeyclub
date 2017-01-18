@@ -34,35 +34,21 @@ class AssetController extends Controller
     {
         $types = \App\Type::orderBy('name')->get()->pluck('name','id');
         $selectedType = null;
-        $sistemas_operativos = DB::select("select id, valor from pc_caracteristicas where tipo = 'sistema_operativo'");
-dd($sistemas_operativos);
-        $selectedSistema_operativo = null;
+        $sistemasOperativos = $this->PcCaracteristicas('sistema_operativo');
+        $selectedSistemaOperativo = null;
 
-        $discos_duros = [
-            'Seagate 500GB' => 'Seagate 500GB',
-            'Western Digital 500GB' => 'Western Digital 500GB',
-            'Seagate 1TB' => 'Seagate 1TB',
-            'Western Digital 1TB' => 'Western Digital 1TB',
-        ];
-        $selectedDisco_duro = null;
-
-        $procesadores = [
-            'Intel Core i3' => 'Intel Core i3',
-            'Intel Core i5' => 'Intel Core i5',
-            'Intel Core i7' => 'Intel Core i7',
-        ];
+        $discosDuros = $this->PcCaracteristicas('disco_duro');
+        $selectedDiscoDuro = null;
+        
+        $procesadores = $this->PcCaracteristicas('procesador');
         $selectedProcesador = null;
 
-        $motherboards = [
-            'Modelo 1' => 'Modelo 1',
-            'Modelo 2' => 'Modelo 2',
-            'Modelo 3' => 'Modelo 3',
-            'Modelo 4' => 'Modelo 4',
-        ];
+
+        $motherboards = $this->PcCaracteristicas('motherboard');
         $selectedMotherboard = null;
 
-        return view('assets.create', compact('types', 'selectedType', 'sistemas_operativos', 'selectedSistema_operativo',
-            'discos_duros', 'selectedDisco_duro',
+        return view('assets.create', compact('types', 'selectedType', 'sistemasOperativos', 'selectedSistemaOperativo',
+            'discosDuros', 'selectedDiscoDuro',
             'procesadores', 'selectedProcesador',
             'motherboards', 'selectedMotherboard'));
     }
@@ -90,30 +76,37 @@ dd($sistemas_operativos);
                 'procesador'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
             ];
             $this->validate($request, $rules);
-            $asset = new Asset();
-            $asset->fechaCompra = $request->fechaCompra;
-            $asset->marca = $request->marca;
-            $asset->modelo = $request->modelo;
-            $asset->serial = $request->serial;
-            $asset->proveedor = $request->proveedor;
-            $asset->orden_compra = $request->orden_compra;
-            $asset->type_id = $request->type_id;
-            $asset->precio = $request->precio;
-            $asset->nota = $request->nota;
-            $asset->status = 'A';
-            $asset->user_id = Auth::user()->id;
-            $asset->usuario_actual = $destino_por_defecto;
-            $asset->sistema_operativo = $request->sistema_operativo;
-            $asset->disco_duro = $request->disco_duro;
-            $asset->procesador = $request->procesador;
-            $asset->motherboard = $request->motherboard;
-            $asset->save();
+            $datos = $request->all();
+            $datos['status'] = 'A';
+            $datos['user_id'] = Auth::user()->id;
+//            $datos['usuario_actual'] = $destino_por_defecto;
 
+            $asset = Asset::create($datos);
+
+//            $asset = new Asset();
+//            $asset->fechaCompra = $request->fechaCompra;
+//            $asset->marca = $request->marca;
+//            $asset->modelo = $request->modelo;
+//            $asset->serial = $request->serial;
+//            $asset->proveedor = $request->proveedor;
+//            $asset->orden_compra = $request->orden_compra;
+//            $asset->type_id = $request->type_id;
+//            $asset->precio = $request->precio;
+//            $asset->nota = $request->nota;
+//            $asset->status = 'A';
+//            $asset->user_id = Auth::user()->id;
+            $asset->usuario_actual = $destino_por_defecto;
+//            $asset->sistema_operativo = $request->sistema_operativo;
+//            $asset->disco_duro = $request->disco_duro;
+//            $asset->procesador = $request->procesador;
+//            $asset->motherboard = $request->motherboard;
+            $asset->save();
             $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);
 
             flash('El equipo se creó con éxito.', 'success');
 
         } catch (\Illuminate\Database\QueryException $e) {
+            dd($e->errorInfo[2]);
             flash('El serial ' . $request->serial . 'está duplicado.', 'error');
             return back()->withInput();
         }
@@ -144,7 +137,24 @@ dd($sistemas_operativos);
         $asset = Asset::findOrFail($id);
         $types = \App\Type::orderBy('name')->get()->pluck('name','id');
         $selectedType = $asset->type_id;
-        return view('assets.edit', compact('asset','types', 'selectedType'));
+        $sistemasOperativos = $this->PcCaracteristicas('sistema_operativo');
+        $selectedSistemaOperativo = null;
+
+        $discosDuros = $this->PcCaracteristicas('disco_duro');
+        $selectedDiscoDuro = null;
+
+        $procesadores = $this->PcCaracteristicas('procesador');
+        $selectedProcesador = null;
+
+
+        $motherboards = $this->PcCaracteristicas('motherboard');
+        $selectedMotherboard = null;
+
+        return view('assets.edit', compact('asset', 'types', 'selectedType',
+            'sistemasOperativos', 'selectedSistemaOperativo',
+            'discosDuros', 'selectedDiscoDuro',
+            'procesadores', 'selectedProcesador',
+            'motherboards', 'selectedMotherboard'));
     }
 
     /**
@@ -227,5 +237,18 @@ dd($sistemas_operativos);
 
         return QrCode::format('png')->size(200)->generate($info, $path);
 
+    }
+
+    /**
+     * @param String $item
+     * @return static
+     */
+    private function PcCaracteristicas(String $item)
+    {
+        $result = collect(
+            DB::select("select id, valor from pc_caracteristicas where tipo = '" . $item . "' order by valor")
+        )->pluck('valor', 'id');
+
+        return $result;
     }
 }
