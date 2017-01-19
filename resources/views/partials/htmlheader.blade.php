@@ -34,5 +34,5 @@
     <script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
     @if (Auth::check())
         <meta name="csrf-token" content="{{ csrf_token() }}">
-@endif
+    @endif
 </head>

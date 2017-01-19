@@ -30,8 +30,8 @@
                             @foreach ($moves as $move)
                                 <tr>
                                     <td>{{$move->created_at->format('d-M-Y h:m') }}</td>
-                                    <td><a href="/usuarios/{{ $move->usuarioOrigen->id }}">{{$move->usuarioOrigen->name}}</a></td>
-                                    <td><a href="/usuarios/{{ $move->usuarioDestino->id }}">{{$move->usuarioDestino->name}}</a></td>
+                                    <td><a href="/usuarios/{{ $move->usuarioOrigen->id }}">{{$move->usuarioOrigen->fullName}}</a></td>
+                                    <td><a href="/usuarios/{{ $move->usuarioDestino->id }}">{{$move->usuarioDestino->fullName}}</a></td>
                                     <td><a href="/equipos/{{ $move->asset->id }}">{{ $move->asset->serial }}</a></td>
                                     <td>{{ $move->asset->marca }} / {{$move->asset->modelo}}</td>
                                     <td align="right">
