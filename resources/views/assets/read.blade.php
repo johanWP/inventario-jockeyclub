@@ -37,13 +37,35 @@
         <div class="col-sm-8">{{ $asset->modelo }}</div>
     </div>
     <div class="row">
-        <div class="col-sm-4"><b>Serial:</b></div>
+        <div class="col-sm-4"><b>Serial Interno:</b></div>
         <div class="col-sm-8">{{ $asset->serial }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4"><b>Serial del Fabricante:</b></div>
+        <div class="col-sm-8">{{ $asset->serial_fabricante }}</div>
     </div>
     <div class="row">
         <div class="col-sm-4"><b>Precio:</b></div>
         <div class="col-sm-8">${{ $asset->precio }}</div>
     </div>
+    @if ($asset->type_id == '3')
+        <div class="row">
+            <div class="col-sm-4"><b>Sistema Operativo:</b></div>
+            <div class="col-sm-8">{{ $asset->nombreSistemaOperativo }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><b>Procesador:</b></div>
+            <div class="col-sm-8">{{ $asset->nombreProcesador }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><b>Disco Duro:</b></div>
+            <div class="col-sm-8">{{ $asset->nombreDiscoDuro }}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><b>Motherboard:</b></div>
+            <div class="col-sm-8">{{ $asset->nombreMotherboard }}</div>
+        </div>
+    @endif
     <div class="row">
         <div class="col-sm-4"><b>Asignado a:</b></div>
         <div class="col-sm-8"><a href="/usuarios/{{$asset->owner->id}}">{{ $asset->owner->name }}</a></div>
@@ -69,11 +91,11 @@
             ', Precio: '.$asset->precio.
             ', Nota: '.$asset->nota;
                 ?>
-            {!! QrCode::format('png')->size(200)->generate($info, 'qr/'.$asset->id.'.png') !!}
+{{--            {!! QrCode::format('png')->size(200)->generate($info, 'qr/'.$asset->id.'.png') !!}--}}
 
 
             @endif
-                <img src="/qr/{{$asset->id}}.png" width="200" height="200">
+                {{--<img src="/qr/{{$asset->id}}.png" width="200" height="200">--}}
         </div>
     </div>
 </div>
@@ -94,11 +116,11 @@
 
                 @foreach($moves as $move)
                 <tr>
-                    <td>{!! $move->usuarioOrigen->name !!}</td>
+                    <td>{!! $move->usuarioOrigen->fullNname !!}</td>
                     <td><i class="fa fa-arrow-right"></i></td>
-                    <td>{!! $move->usuarioDestino->name !!}</td>
+                    <td>{!! $move->usuarioDestino->fullName !!}</td>
                     <td>{!! $move->created_at !!}</td>
-                    <td>{!! $move->hechoPor->name !!}</td>
+                    <td>{!! $move->hechoPor->fullName !!}</td>
                 </tr>
                 @endforeach
                 </tbody>

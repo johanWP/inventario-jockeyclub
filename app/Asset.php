@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
+use Illuminate\Support\Facades\DB;
 
 class Asset extends Model implements LogsActivityInterface
 {
@@ -85,5 +86,29 @@ class Asset extends Model implements LogsActivityInterface
         return '';
     }
 
-
+    public function getNombreSistemaOperativoAttribute()
+    {
+        $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->sistema_operativo))->first();
+        return $nombre->valor;
+    }    
+    
+    public function getNombreProcesadorAttribute()
+    {
+        $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->procesador))->first();
+        return $nombre->valor;
+    }    
+    
+    public function getNombreDiscoDuroAttribute()
+    {
+        $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->disco_duro))->first();
+        return $nombre->valor;
+    }    
+    
+    public function getNombreMotherboardAttribute()
+    {
+        $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->motherboard))->first();
+        return $nombre->valor;
+    }
+    
+    
 }

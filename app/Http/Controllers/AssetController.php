@@ -79,28 +79,11 @@ class AssetController extends Controller
             $datos = $request->all();
             $datos['status'] = 'A';
             $datos['user_id'] = Auth::user()->id;
-//            $datos['usuario_actual'] = $destino_por_defecto;
 
             $asset = Asset::create($datos);
-
-//            $asset = new Asset();
-//            $asset->fechaCompra = $request->fechaCompra;
-//            $asset->marca = $request->marca;
-//            $asset->modelo = $request->modelo;
-//            $asset->serial = $request->serial;
-//            $asset->proveedor = $request->proveedor;
-//            $asset->orden_compra = $request->orden_compra;
-//            $asset->type_id = $request->type_id;
-//            $asset->precio = $request->precio;
-//            $asset->nota = $request->nota;
-//            $asset->status = 'A';
-//            $asset->user_id = Auth::user()->id;
             $asset->usuario_actual = $destino_por_defecto;
-//            $asset->sistema_operativo = $request->sistema_operativo;
-//            $asset->disco_duro = $request->disco_duro;
-//            $asset->procesador = $request->procesador;
-//            $asset->motherboard = $request->motherboard;
             $asset->save();
+
             $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);
 
             flash('El equipo se creó con éxito.', 'success');
