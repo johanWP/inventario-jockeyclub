@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
+@yield('additional-scripts')
 @include('partials.htmlheader')
 @include('partials.scripts')
-@yield('additional-scripts')
+
 <body class="skin-green sidebar-mini">
 <div class="wrapper" id="wrapper">
 

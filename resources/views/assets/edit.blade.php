@@ -22,8 +22,26 @@
     </div>
 @endsection
 
-@section('additional-scripts')
+@section('footer-scripts')
     <link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
     <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
-    @include('assets.assets_js')
+{{--    @include('assets.assets_js')--}}
+    <script>
+        $( document ).ready(function() {
+            if ( $('#type_id').val() == '3' || $('#type_id').val() == '7') {
+                $('div[name=pc]').show();
+            } else {
+                // Si es una PC o Notebook
+                $('div[name=pc]').hide();
+            }
+
+            $('#type_id').attr('readonly', 'readonly');
+
+            $('#fechaCompra').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy",
+                endDate: '0d'   // no se puede seleccionar una fecha después de hoy
+            });
+        });
+    </script>
 @endsection

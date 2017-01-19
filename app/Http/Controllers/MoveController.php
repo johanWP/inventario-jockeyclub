@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Asset;
 use App\Move;
 use Illuminate\Http\Request;
-
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +32,19 @@ class MoveController extends Controller
     {
         $selectedOrigen = null;
         $selectedDestino = null;
-        $users = \App\User::orderBy('name')->pluck('name', 'id');
+//        $users = \App\User::orderBy('name')->pluck('name', 'id');
+        $usuarios = User::orderBy('last_name')->get();
+        foreach($usuarios as $user)
+        {
+            if($user->user_type == 'V')
+            {
+                $users[$user->id] = $user->name;
+            } else {
+
+                $users[$user->id] = $user->last_name .', ' . $user->name;
+            }
+        }
+
         $selectedAsset = null;
         $assets = \App\Asset::orderBy('serial')->pluck('serial', 'id');
         return view('moves.create', compact('users', 'selectedOrigen','selectedDestino', 'assets', 'selectedAsset'));

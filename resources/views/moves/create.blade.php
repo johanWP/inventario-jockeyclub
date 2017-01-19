@@ -41,7 +41,7 @@
     </div>
 @endsection
 
-@section('additional-scripts')
+@section('footer-scripts')
     <script src="/plugins/select2/select2.min.js"></script>
     <link rel="stylesheet" href="/plugins/select2/select2.min.css">
     <script type="text/javascript">

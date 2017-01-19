@@ -23,8 +23,37 @@
     </div>
 @endsection
 
-@section('additional-scripts')
+@section('footer-scripts')
     <link href="/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
     <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
-    @include('assets.assets_js')
+{{--    @include('assets.assets_js')--}}
+    <script>
+        $( document ).ready(function() {
+            $('#fechaCompra').datepicker({
+                autoclose: true,
+                format: "dd-mm-yyyy",
+                endDate: '0d'   // no se puede seleccionar una fecha después de hoy
+            });
+
+
+            $('#type_id').change(function() {
+                var url = "/api/getNextSerial/" + $ ( this ).val ();
+                var jqxhr = $.ajax ( url )
+                        .done ( function ( data ) {
+                            $ ( '#serial' ).val ( data );
+                        } )
+                        .fail ( function () {
+                            alert ( "error" );
+                        } );
+                if ( $(this).val () == '3' || $(this).val () == '7')    // Si el tipo es PC o Notebook
+                {
+                    $ ( 'div[name=pc]' ).show ();
+                } else {
+                    $ ( 'div[name=pc]' ).hide ();
+                }
+            });
+        });
+    </script>
+
+
 @endsection

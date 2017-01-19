@@ -107,8 +107,9 @@ class Asset extends Model implements LogsActivityInterface
     public function getNombreMotherboardAttribute()
     {
         $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->motherboard))->first();
+        
         return $nombre->valor;
     }
-    
+
     
 }

@@ -166,7 +166,7 @@ class AssetController extends Controller
         $asset->orden_compra = $request->orden_compra;
         $asset->modelo = $request->modelo;
         $asset->serial = $request->serial;
-        $asset->type_id = $request->type_id;
+//        $asset->type_id = $request->type_id;
         $asset->precio = $request->precio;
         $asset->nota = $request->nota;
         $asset->status = 'A';
