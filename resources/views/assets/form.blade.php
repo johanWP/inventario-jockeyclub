@@ -102,12 +102,22 @@
 </div>
 
 
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('nota', 'Notas:') !!}
+            {!! Form::textarea('nota', null, ['class'=>'form-control', 'rows'=>'2']) !!}
+        </div>
+    </div>
 
-
-<div class="form-group">
-    {!! Form::label('nota', 'Notas:') !!}
-    {!! Form::textarea('nota', null, ['class'=>'form-control', 'rows'=>'2']) !!}
+    <div class="col-sm-6">
+        <div class="form-group">
+            {!! Form::label('destination_id', 'Asignar a:') !!}
+            {!! Form::select('destination_id', $users, $selectedUser, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        </div>
+    </div>
 </div>
+
 
 <div class="form-group">
     <a href="#" class="btn btn-default" onclick="history.back()"><i class="fa fa-arrow-left"></i> Volver</a>

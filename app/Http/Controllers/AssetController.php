@@ -47,10 +47,22 @@ class AssetController extends Controller
         $motherboards = $this->PcCaracteristicas('motherboard');
         $selectedMotherboard = null;
 
+        $usuarios = User::orderBy('last_name')->get();
+        foreach($usuarios as $user)
+        {
+            if($user->user_type == 'V')
+            {
+                $users[$user->id] = $user->name;
+            } else {
+
+                $users[$user->id] = $user->last_name .', ' . $user->name;
+            }
+        }
+
+        $selectedUser = 1;
         return view('assets.create', compact('types', 'selectedType', 'sistemasOperativos', 'selectedSistemaOperativo',
-            'discosDuros', 'selectedDiscoDuro',
-            'procesadores', 'selectedProcesador',
-            'motherboards', 'selectedMotherboard'));
+            'discosDuros', 'selectedDiscoDuro', 'procesadores', 'selectedProcesador',
+            'motherboards', 'selectedMotherboard', 'users', 'selectedUser'));
     }
 
     /**
@@ -62,14 +74,15 @@ class AssetController extends Controller
     public function store(Request $request)
     {
         try {
-            $origen_por_defecto = User::where('username', 'compras')->first()->id;
-            $destino_por_defecto = User::where('username', 'sistemas')->first()->id;
+            $origen = User::where('username', 'compras')->first()->id;
+            $destino = User::where('username', 'sistemas')->first()->id;
             $rules = [
                 'fechaCompra'   => 'required|date',
                 'marca'         => 'required',
                 'modelo'        => 'required',
                 'serial'        => 'required',
                 'precio'        => 'numeric',
+                'destination_id'=> 'required|numeric',
                 'sistema_operativo' => 'required_if:type_id, 3',    // requerido si el asset es un PC
                 'disco_duro'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
                 'motherboard'   => 'required_if:type_id, 3',    // requerido si el asset es un PC
@@ -79,12 +92,12 @@ class AssetController extends Controller
             $datos = $request->all();
             $datos['status'] = 'A';
             $datos['user_id'] = Auth::user()->id;
-
+            $destino = $datos['destination_id'];
             $asset = Asset::create($datos);
-            $asset->usuario_actual = $destino_por_defecto;
+            $asset->usuario_actual = $destino;
             $asset->save();
 
-            $move = $this->CrearMovimiento($origen_por_defecto, $destino_por_defecto, $asset->id, $asset->user_id);
+            $move = $this->CrearMovimiento($origen, $destino, $asset->id, $asset->user_id);
 
             flash('El equipo se creó con éxito.', 'success');
 

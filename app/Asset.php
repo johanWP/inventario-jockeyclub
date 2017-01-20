@@ -89,26 +89,29 @@ class Asset extends Model implements LogsActivityInterface
     public function getNombreSistemaOperativoAttribute()
     {
         $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->sistema_operativo))->first();
-        return $nombre->valor;
+        (strlen($nombre->valor) > 0) ? $valor = $nombre->valor : $valor = '';
+        return $valor;
     }    
     
     public function getNombreProcesadorAttribute()
     {
         $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->procesador))->first();
-        return $nombre->valor;
+        (strlen($nombre->valor) > 0) ? $valor = $nombre->valor : $valor = '';
+        return $valor;
     }    
     
     public function getNombreDiscoDuroAttribute()
     {
         $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->disco_duro))->first();
-        return $nombre->valor;
+        (strlen($nombre->valor) > 0) ? $valor = $nombre->valor : $valor = '';
+        return $valor;
     }    
     
     public function getNombreMotherboardAttribute()
     {
         $nombre = collect(DB::select('select valor from pc_caracteristicas where id=' . $this->motherboard))->first();
-        
-        return $nombre->valor;
+        (strlen($nombre->valor) > 0) ? $valor = $nombre->valor : $valor = '';
+        return $valor;
     }
 
     

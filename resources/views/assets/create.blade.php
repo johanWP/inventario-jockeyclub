@@ -28,7 +28,9 @@
     <script src="/plugins/datepicker/bootstrap-datepicker.js"></script>
 {{--    @include('assets.assets_js')--}}
     <script>
+
         $( document ).ready(function() {
+            $ ( 'div[name=pc]' ).hide ();
             $('#fechaCompra').datepicker({
                 autoclose: true,
                 format: "dd-mm-yyyy",
