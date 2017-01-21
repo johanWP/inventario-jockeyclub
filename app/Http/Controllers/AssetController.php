@@ -146,7 +146,22 @@ class AssetController extends Controller
         $motherboards = $this->PcCaracteristicas('motherboard');
         $selectedMotherboard = null;
 
-        return view('assets.edit', compact('asset', 'types', 'selectedType',
+        $usuarios = User::orderBy('last_name')->get();
+        foreach($usuarios as $user)
+        {
+            if($user->user_type == 'V')
+            {
+                $users[$user->id] = $user->name;
+            } else {
+
+                $users[$user->id] = $user->last_name .', ' . $user->name;
+            }
+        }
+
+        $selectedUser = $asset->owner->id;;
+
+
+        return view('assets.edit', compact('users', 'selectedUser', 'asset', 'types', 'selectedType',
             'sistemasOperativos', 'selectedSistemaOperativo',
             'discosDuros', 'selectedDiscoDuro',
             'procesadores', 'selectedProcesador',

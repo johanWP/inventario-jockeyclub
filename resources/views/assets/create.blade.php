@@ -30,13 +30,19 @@
     <script>
 
         $( document ).ready(function() {
-            $ ( 'div[name=pc]' ).hide ();
+            $ ('div[name=pc]').hide ();
             $('#fechaCompra').datepicker({
                 autoclose: true,
                 format: "dd-mm-yyyy",
                 endDate: '0d'   // no se puede seleccionar una fecha después de hoy
             });
 
+            if ( $('#type_id').val() == '3' || $('#type_id').val() == '7') {
+                $('div[name=pc]').show();
+            } else {
+                // Si es una PC o Notebook
+                $('div[name=pc]').hide();
+            }
 
             $('#type_id').change(function() {
                 var url = "/api/getNextSerial/" + $ ( this ).val ();
@@ -49,9 +55,9 @@
                         } );
                 if ( $(this).val () == '3' || $(this).val () == '7')    // Si el tipo es PC o Notebook
                 {
-                    $ ( 'div[name=pc]' ).show ();
+                    $ ('div[name=pc]').show ();
                 } else {
-                    $ ( 'div[name=pc]' ).hide ();
+                    $ ('div[name=pc]').hide ();
                 }
             });
         });

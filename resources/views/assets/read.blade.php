@@ -116,7 +116,7 @@
 
                 @foreach($moves as $move)
                 <tr>
-                    <td>{!! $move->usuarioOrigen->fullNname !!}</td>
+                    <td>{!! $move->usuarioOrigen->fullName !!}</td>
                     <td><i class="fa fa-arrow-right"></i></td>
                     <td>{!! $move->usuarioDestino->fullName !!}</td>
                     <td>{!! $move->created_at !!}</td>
