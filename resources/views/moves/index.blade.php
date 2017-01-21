@@ -15,6 +15,10 @@
                 @include('flash::message')
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <a href="/movimientos/create/" class="btn btn-primary" style="margin-bottom: -3em">
+                            <i class="fa fa-plus"></i> Crear Nuevo
+                        </a>
+
                         <table class="table table-hover" id="dataTable">
                             <thead>
                             <tr>
@@ -61,7 +65,7 @@
                 "autoWidth": false,
                 "language": {
                     processing: "Espera...",
-                    search: "Buscar&nbsp;:",
+                    search: "Buscar:&nbsp;",
                     info:   "Mostrando registros _START_ a _END_ de _TOTAL_ en total",
                     paginate: {
                         first: "Primero",

@@ -19,7 +19,7 @@
 
                     <div class="panel-body">
                         <a href="/usuarios/create/" class="btn btn-primary" style="margin-bottom: -3em">
-                            <i class="ion ion-person-add"></i> Crear Nuevo
+                            <i class="fa fa-plus"></i> Crear Nuevo
                         </a>
                         <table class="table table-hover" id="dataTable">
                             <thead>

@@ -189,16 +189,23 @@ class AssetController extends Controller
         $this->validate($request, $rules);
         $asset = Asset::findOrFail($id);
         $asset->fechaCompra = $request->fechaCompra;
-        $asset->marca = $request->marca;
-        $asset->proveedor = $request->proveedor;
         $asset->orden_compra = $request->orden_compra;
+        $asset->marca = $request->marca;
         $asset->modelo = $request->modelo;
-        $asset->serial = $request->serial;
-//        $asset->type_id = $request->type_id;
         $asset->precio = $request->precio;
+        $asset->proveedor = $request->proveedor;
+        $asset->serial_fabricante = $request->serial_fabricante;
+//        $asset->serial = $request->serial;
+//        $asset->type_id = $request->type_id;
         $asset->nota = $request->nota;
         $asset->status = 'A';
         $asset->save();
+
+        if ($asset->owner->id != $request->destination_id)
+        {
+            $move = $this->CrearMovimiento($asset->owner->id, $request->destination_id, $asset->id, $asset->user_id);
+        }
+
 
         flash('El equipo se actualizó con éxito.', 'success');
         return redirect('equipos');
