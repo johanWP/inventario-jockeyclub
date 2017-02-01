@@ -62,7 +62,7 @@ class SectorTest extends TestCase
     public function testEditSector()
     {
         $johan = App\User::find(5);
-        $sector = App\Area::orderBy('id', 'DESC')->first();
+        $sector = App\Sector::orderBy('id', 'DESC')->first();
         $this->actingAs($johan)
             ->visit('/sectores/'.$sector->id.'/edit')
             ->type($sector->name. ' modificada', 'name')
