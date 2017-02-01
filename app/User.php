@@ -18,19 +18,8 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'last_name', 'email', 'password', 'username', 'position', 'area_id', 'ext'];
+    protected $fillable = ['name', 'last_name', 'email', 'password', 'username', 'position', 'sector_id', 'ext'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -39,9 +28,9 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function area()
+    public function sector()
     {
-        return $this->belongsTo('App\Area');
+        return $this->belongsTo('App\Sector');
     }
 
     /**
@@ -94,7 +83,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public function sectors()
     {
-        return $this->hasMany('App\Sector');
+//        return $this->hasMany('App\Sector');
     }
 
     /**

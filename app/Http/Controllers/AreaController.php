@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Area;
 use DB;
 use App\Sector;
+use App\Area;
 
 class AreaController extends Controller
 {
@@ -30,9 +30,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
-        $selectedSector = null;
-        return view('areas.create', compact('sector', 'selectedSector'));
+        return view('areas.create');
     }
 
     /**
@@ -52,9 +50,9 @@ class AreaController extends Controller
         $this->validate($request, $rules);
         Area::create($request->all());
         flash('El área se creó con éxito.', 'success');
-        return redirect('areas');
-
+        return redirect('/areas');
     }
+
 
     /**
      * Display the specified resource.
@@ -65,7 +63,8 @@ class AreaController extends Controller
     public function show($id)
     {
         $area = Area::findOrFail($id);
-        return view('areas.read', compact('area'));
+        $sectores = Sector::where('area_id', $area->id)->get();
+        return view('areas.read', compact('area', 'sectores'));
     }
 
     /**
@@ -77,10 +76,11 @@ class AreaController extends Controller
     public function edit($id)
     {
         $area = Area::findOrFail($id);
-        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
-        $selectedSector = $area->sector->id;
-        return view('areas.edit', compact('area','sector', 'selectedSector'));
+//        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
+//        $selectedSector = $area->sector->id;
+        return view('areas.edit', compact('area'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -101,8 +101,9 @@ class AreaController extends Controller
         $area = Area::findOrFail($id);
         $area->update($request->all());
         flash('El área se actualizó con éxito.', 'success');
-        return redirect('areas');
+        return redirect('/areas');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -115,6 +116,7 @@ class AreaController extends Controller
         $area = Area::findOrFail($id);
         $area->delete();
         flash('El área se borró con éxito.', 'success');
-        return redirect('areas');
+        return redirect('/areas');
     }
+
 }

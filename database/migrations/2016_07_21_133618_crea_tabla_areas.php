@@ -15,10 +15,9 @@ class CreaTablaAreas extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('email');
             $table->string('description');
-            $table->string('fax');
-            $table->string('email')->nullable();
-            $table->integer('sector_id')->unsigned()->default(1);
+            $table->integer('office_id')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

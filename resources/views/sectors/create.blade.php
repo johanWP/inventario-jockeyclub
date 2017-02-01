@@ -14,10 +14,9 @@
             <div class="col-md-10 col-md-offset-1">
                 @include('errors.validationErrors')
                 <div class="register-box-body">
-                    {{--<p class="login-box-msg">Register a new membership</p>--}}
-                    {!! Form::open(['url'=>'sectores']) !!}
+                    {!! Form::open(['url'=>'/sectores']) !!}
 
-                    @include('sectors.form', ['buttonText'=>'Incluir nuevo sector'])
+                    @include('sectors.form', ['buttonText'=>'Incluir sector'])
 
                     {!! Form::close() !!}
 

@@ -18,10 +18,10 @@ class AreaTest extends TestCase
     // Este array debe mantenerse consistente con $fillable en el Modelo Area
     protected $columns =
         [
-            'name', 'description', 'email', 'fax', 'sector_id',
+            'name', 'description', 'email', 'office_id',
             'created_at', 'updated_at', 'deleted_at'
         ];
-
+    
 
     public function __construct() {
 //        $this->email = 'area_'.rand(1, 9999).'@mail.com';
@@ -48,35 +48,29 @@ class AreaTest extends TestCase
             $this->assertTrue(Schema::hasColumn($this->tabla, $this->columns[$i]));
         }
     }
-
     public function testAddArea()
     {
         $johan = App\User::find(5);
-        $num = rand(1111, 9999);
         $this->actingAs($johan)
             ->visit('/areas/create')
-            ->type('Area de Test ' . $num, 'name')
+            ->type('Area de Test', 'name')
             ->type('Esta es una descripción de pruebas', 'description')
-            ->type('area_'. $num . '@mail.com', 'email')
-            ->type('1234'. $num, 'fax')
-            ->select('1', 'sector_id')
-            ->press('Incluir área')
+            ->type('test_'.rand(1, 9999).'@mail.com', 'email')
+            ->press('Incluir nueva área')
             ->see('El área se creó con éxito.');
     }
 
     public function testEditArea()
     {
         $johan = App\User::find(5);
-        $area = App\Area::orderBy('id', 'DESC')->first();
+        $area = App\Area::where('name', 'Area de Test')->first();
         $this->actingAs($johan)
             ->visit('/areas/'.$area->id.'/edit')
-            ->type($area->name. ' modificada', 'name')
+            ->type('Area de Test modificado', 'name')
             ->type('Esta es una descripción de pruebas modificado', 'description')
-            ->type($area->email . '.ar', 'email')
-            ->type('1234'.rand(8888, 9999), 'fax')
-            ->select('1', 'sector_id')
+            ->type('test_'.rand(1, 9999).'@mail.com', 'email')
             ->press('Actualizar área')
             ->see('El área se actualizó con éxito.');
     }
-
+    
 }

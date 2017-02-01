@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-3">
 
-                <!-- Profile Image -->
+                {{-- Esto es un Vue Component que se define al final de este mismo archivo --}}
                 <user_box user_id="{{ $user->id }}"></user_box>
                 <!-- About Me Box -->
                 <div class="box box-primary">
@@ -223,9 +223,9 @@
                                 <span v-model="ext" ><b>Interno: </b> @{{ ext }}</span>
                             </li>
                             <li class="list-group-item"  style="border: none">
-                                <a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a>
+                                <a href="/sectores/{{ $user->sector->id }}">{{ $user->sector->name }}</a>
                                 -
-                                <a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a>
+                                <a href="/areas/{{ $user->sector->area->id }}">{{ $user->sector->area->name }}</a>
                             </li>
                         </ul>
 

@@ -25,9 +25,8 @@
                             <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Sector</th>
                                 <th>Área</th>
-                                {{--<th>Ext</th>--}}
+                                <th>Sector</th>
                                 <th>Email</th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -36,12 +35,10 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <td><a href="/usuarios/{{ $user->id }}">{{ $user->fullName }}</a></td>
-                                    <td><a href="/sectores/{{ $user->area->sector->id }}">{{ $user->area->sector->name }}</a></td>
-                                    <td><a href="/areas/{{ $user->area->id }}">{{ $user->area->name }}</a></td>
-                                    {{--<td>{{ $user->ext }}</td>--}}
+                                    <td><a href="/areas/{{ $user->sector->area->id }}">{{ $user->sector->area->name }}</a></td>
+                                    <td><a href="/sectores/{{ $user->sector->id }}">{{ $user->sector->name }}</a></td>
                                     <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                     <td align="right">
-{{--                                        <a href="usuarios/{{$user->id}}" class="btn btn-sm btn-default">Ver</a>--}}
                                         <a href="usuarios/{{$user->id}}/edit" class="btn btn-sm btn-primary">Editar</a>
                                         <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete" data-id="{{ $user->id }}" data-name="{{$user->name}}" data-model="usuarios">Borrar</button>
                                     </td>

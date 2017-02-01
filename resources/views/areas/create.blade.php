@@ -14,10 +14,9 @@
             <div class="col-md-10 col-md-offset-1">
                 @include('errors.validationErrors')
                 <div class="register-box-body">
-                    {{--<p class="login-box-msg">Register a new membership</p>--}}
-                    {!! Form::open(['url'=>'areas']) !!}
+                    {!! Form::open(['url'=>'/areas']) !!}
 
-                    @include('areas.form', ['buttonText'=>'Incluir área'])
+                    @include('areas.form', ['buttonText'=>'Incluir nueva área'])
 
                     {!! Form::close() !!}
 

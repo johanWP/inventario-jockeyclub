@@ -8,17 +8,22 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Area extends Model
 {
     use SoftDeletes;
-//Este array debe mantenerse consistente con el test
-    protected $fillable = ['name', 'description', 'email', 'fax', 'sector_id'];
     protected $table = 'areas';
-    
-    public function users()
+    protected $fillable = ['name', 'description', 'email', 'office_id'];
+
+    public function sectors()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Sector')->orderBy('name');
     }
 
-    public function sector()
+    public function manager()
     {
-        return $this->belongsTo('App\Sector');
+//        return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function users()
+    {
+        return $this->hasManyThrough('App\User', 'App\Sector')->where('user_type', 'U')->orderBy('name');
+    }
+
 }

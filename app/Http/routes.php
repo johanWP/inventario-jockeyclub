@@ -38,17 +38,17 @@ Route::get('recordar', function () {
 });
 
 Route::get('password/email', 'Auth\PasswordController@getEmail');
-
+//TODO: poner tal cosa
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', 'PagesController@home');
     Route::get('/usuarios/import', 'UserController@showImportForm');
     Route::post('/usuarios/import', 'UserController@ImportUsers');
-    Route::resource('areas', 'AreaController');
-    Route::resource('sectores', 'SectorController');
-    Route::resource('usuarios', 'UserController');
-    Route::resource('equipos', 'AssetController');
-    Route::resource('movimientos', 'MoveController');
+    Route::resource('/areas', 'AreaController');
+    Route::resource('/sectores', 'SectorController');
+    Route::resource('/usuarios', 'UserController');
+    Route::resource('/equipos', 'AssetController');
+    Route::resource('/movimientos', 'MoveController');
 //    Route::get('papelera/', 'TrashController@index');
     Route::get('/pdf/guia', 'PdfController@getUsers');
     Route::get('/avaya/import', 'AvayaController@getFile');
@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => 'api'], function () {
     Route::get('api/getSectors/', ['as' => 'getSectors', 'uses' => 'ApiController@getSectors']);
+    Route::get('api/getAreas/', ['as' => 'getAreas', 'uses' => 'ApiController@getAreas']);
     Route::get('api/getAssets/{id}', ['as' => 'getAssets', 'uses' => 'ApiController@getAssets']);
     Route::get('api/getNextSerial/{type_id}', ['as' => 'getNextSerial', 'uses' => 'ApiController@getNextSerial']);
     Route::get('api/getUserDetails/{user_id}', ['as' => 'getUserDetails', 'uses' => 'ApiController@getUserDetails']);

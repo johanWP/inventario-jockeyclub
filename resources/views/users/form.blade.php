@@ -28,12 +28,12 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-6">
-        {!! Form::label('sector_id', 'Sector:') !!}
-        {!! Form::select('sector_id', $sectors, $selectedSector, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        {!! Form::label('area_id', 'Área:') !!}
+        {!! Form::select('area_id', $areas, $selectedArea, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
     </div>
     <div class="form-group col-sm-6">
-        {!! Form::label('area_id', 'Área:') !!}
-        {!! Form::select('area_id', $areas, null, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
+        {!! Form::label('sector_id', 'Sector:') !!}
+        {!! Form::select('sector_id', $sectors, $selectedSector, ['class' => 'form-control', 'placeholder' => 'Seleccione...']) !!}
     </div>
 </div>
 

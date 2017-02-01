@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Asset;
 use App\Type;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Sector;
 use App\User;
 use Illuminate\Http\Response;
+use App\Area;
 
 class ApiController extends Controller
 {
@@ -32,12 +32,38 @@ class ApiController extends Controller
         return $result;
     }
 
+    /**
+     * Devuelve todas las áreas con sus sectores
+     */
+    public function getAreas()
+    {
+        $result = array();
+        $areas = Area::orderBy('name')->get();
+        foreach ($areas as $area)
+        {
+            $sectors = $area->sectors;
+            foreach ($sectors as $sector)
+            {
+                $result[$area->id][] = ['id' => $sector->id, 'name' => $sector->name];
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param Integer $id
+     * @return mixed
+     */
     public function getAssets($id)
     {
         $user = User::findOrFail($id);
         return $user->inventario;
     }
 
+    /**
+     * @param $type_id
+     * @return string
+     */
     public function getNextSerial($type_id)
     {
         $nextId = (count(Asset::where('type_id', $type_id)->withTrashed()->get()) + 1);
@@ -46,6 +72,10 @@ class ApiController extends Controller
         return $nextSerial;
     }
 
+    /**
+     * @param $user_id
+     * @return array|Response
+     */
     public function getUserDetails($user_id)
     {
         $data = array();
@@ -63,7 +93,11 @@ class ApiController extends Controller
         }
     }
 
-    public function postUserDetails( Request $request )
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function postUserDetails(Request $request )
     {
         $user = User::find( $request->user_id );
         if ( $user )

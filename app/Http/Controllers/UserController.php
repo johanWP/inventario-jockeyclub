@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Area;
 use DB;
 use Intervention\Image\Facades\Image;
 use App\User;
+use App\Area;
 use App\Sector;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
@@ -26,10 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
+//        Los usuarios tipo V son los almacenes virtuales de compras, dañados, etc, por eso se excluyen del listado
         $users = User::where('user_type', '<>','V')->orderBy('name')->get();
-        $areas = Area::orderBy('name');
-
-        return view('users.index', compact('users', 'areas'));
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -39,10 +38,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $sectors = Sector::lists('name', 'id');
-        $selectedSector = null;
         $areas = Area::lists('name', 'id');;
         $selectedArea = null;
+
+        $sectors = Sector::lists('name', 'id');
+        $selectedSector = null;
+
         return view('users.create', compact('areas','sectors', 'selectedArea', 'selectedSector'));
     }
 
@@ -56,15 +57,16 @@ class UserController extends Controller
     {
         $rules = [
             'username'  => 'required|unique:users|max:100',
-            'name'      => 'required|unique:users|max:200',
-            'last_name' => 'required|unique:users|max:200',
+            'name'      => 'required|max:200',
+            'last_name' => 'required|max:200',
             'position'  => 'string|max:100',
-            'email'     => 'email',
-            'area_id'   => 'required',
+            'email'     => 'required|email',
+            'sector_id'   => 'required',
             'ext'       => 'digits:4',
             'image'     => 'mimes:png'
         ];
         $this->validate($request, $rules);
+
         if($request->image)
         {
             $imageName = $request->username . '.' .
@@ -78,10 +80,9 @@ class UserController extends Controller
                 ->destroy();
         }
 
-
         User::create($request->all());
         flash('El usuario se creó con éxito.', 'success');
-        return redirect('usuarios');
+        return redirect('/usuarios');
     }
 
     /**
@@ -106,9 +107,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $selectedSector = $user->area->sector->id;
-        $sectors = Sector::lists('name', 'id');
-        $areas = Area::where('sector_id', $selectedSector)->get()->pluck('name', 'id');
+        $areas = Area::lists('name', 'id');
+        $selectedArea = $user->sector->area->id; 
+        $sectors = Sector::where('area_id', $selectedArea)->get()->pluck('name', 'id');
+        $selectedSector = $user->sector->id;
         return view('users.edit', compact('areas','sectors', 'selectedArea', 'selectedSector', 'user'));
     }
 
@@ -122,13 +124,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'username'  => 'required|max:100',
+            'username'  => 'required|unique:users|max:100',
             'name'      => 'required|max:200',
+            'last_name' => 'required|max:200',
             'position'  => 'string|max:100',
-            'email'     => 'email',
-            'area_id'   => 'required',
+            'email'     => 'required|email',
+            'sector_id'   => 'required',
             'ext'       => 'digits:4',
-            'image'     => 'mimes:jpeg,jpg,bmp,png'
+            'image'     => 'mimes:png'
         ];
         $this->validate($request, $rules);
         if($request->image)
@@ -166,7 +169,7 @@ class UserController extends Controller
             $user->delete();
             flash('El usuario se borró con éxito.', 'success');
         }
-        return redirect('usuarios');
+        return redirect('/usuarios');
     }
 
     /**
@@ -224,32 +227,32 @@ class UserController extends Controller
             {
                 try
                 {
-                    $sector     = ucwords(strtolower(trim(utf8_encode($data[0]))));
-                    $area       = ucwords(strtolower(trim(utf8_encode($data[1]))));
+                    $area       = ucwords(strtolower(trim(utf8_encode($data[0]))));
+                    $sector     = ucwords(strtolower(trim(utf8_encode($data[1]))));
                     $cargo      = ucwords(strtolower(trim(utf8_encode($data[2]))));
                     $apellido   = ucwords(strtolower(trim(utf8_encode($data[3]))));
                     $nombre     = ucwords(strtolower(trim(utf8_encode($data[4]))));
                     $ext        = $data[5];
                     $email      = $data[6];
-                    $emailArea  = $data[7];
-
-                    if ($sector <> $sectorActual->name)
-                    {
-                        $sectorActual = Sector::firstOrNew(['name' => $sector]);
-                        $sectorActual->save();
-                    }
+                    $emailSector  = $data[7];
 
                     if ($area <> $areaActual->name)
                     {
                         $areaActual = Area::firstOrNew(['name' => $area]);
-                        $areaActual->sector_id = $sectorActual->id;
-                        $areaActual->email = $emailArea;
                         $areaActual->save();
+                    }
+
+                    if ($sector <> $sectorActual->name)
+                    {
+                        $sectorActual = Sector::firstOrNew(['name' => $sector]);
+                        $sectorActual->area_id = $areaActual->id;
+                        $sectorActual->email = $emailSector;
+                        $sectorActual->save();
                     }
 
                     if(!empty($email))
                     {
-                        $username = strtolower($nombre[0]) . $apellido;
+                        $username = strtolower($nombre[0]) . strtolower($apellido);
                         $user = User::firstOrNew(['username' => $username]);
                         $user->username = $username;
                         $user->name = $nombre;
@@ -259,7 +262,7 @@ class UserController extends Controller
                         $user->ext = $ext;
                         $user->user_type = 'U';
                         $user->password = bcrypt('secreto!!');
-                        $user->area_id = $areaActual->id;
+                        $user->sector_id = $sectorActual->id;
                         $user->save();
                         $total++;
                     }
@@ -268,7 +271,7 @@ class UserController extends Controller
                 } catch (QueryException $e) {
                     $errorCode = $e->errorInfo[1];
                     if ($errorCode == 1062) {
-                        $msg = 'Registro duplicado: ' . $user->name . ' ' . $user->last_name;
+                        $msg = 'Registro duplicado: ' . $nombre . ' ' . $apellido;
                     } else {
                         $msg ='Ocurrió un error al importar los usuarios';
                     }

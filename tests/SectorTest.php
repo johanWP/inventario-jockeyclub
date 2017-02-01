@@ -18,7 +18,7 @@ class SectorTest extends TestCase
     // Este array debe mantenerse consistente con $fillable en el Modelo Move
     protected $columns =
         [
-            'name', 'description', 'email', 'office_id',
+            'name', 'description', 'email', 'fax', 'area_id',
             'created_at', 'updated_at', 'deleted_at'
         ];
 
@@ -47,27 +47,33 @@ class SectorTest extends TestCase
     public function testAddSector()
     {
         $johan = App\User::find(5);
+        $num = rand(1111, 9999);
         $this->actingAs($johan)
             ->visit('/sectores/create')
-            ->type('Sector de Test', 'name')
+            ->type('Sector de Test ' . $num, 'name')
             ->type('Esta es una descripción de pruebas', 'description')
-            ->type('test_'.rand(1, 9999).'@mail.com', 'email')
-            ->press('Incluir nuevo sector')
+            ->type('area_'. $num . '@mail.com', 'email')
+            ->type('1234'. $num, 'fax')
+            ->select('10', 'area_id')
+            ->press('Incluir sector')
             ->see('El sector se creó con éxito.');
     }
 
     public function testEditSector()
     {
         $johan = App\User::find(5);
-        $sector = App\Sector::where('name', 'Sector de Test')->first();
+        $sector = App\Area::orderBy('id', 'DESC')->first();
         $this->actingAs($johan)
             ->visit('/sectores/'.$sector->id.'/edit')
-            ->type('Sector de Test modificado', 'name')
+            ->type($sector->name. ' modificada', 'name')
             ->type('Esta es una descripción de pruebas modificado', 'description')
-            ->type('test_'.rand(1, 9999).'@mail.com', 'email')
+            ->type($sector->email . '.ar', 'email')
+            ->type('1234'.rand(8888, 9999), 'fax')
+            ->select('10', 'area_id')
             ->press('Actualizar sector')
             ->see('El sector se actualizó con éxito.');
     }
+    
 /*
     public function testDeleteSector()
     {

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Sector;
-use App\User;
+use App\Area;
 
 class SectorController extends Controller
 {
@@ -18,10 +18,10 @@ class SectorController extends Controller
      */
     public function index()
     {
-        $sectors = Sector::orderBy('name')->get();
-        $users = User::all();
-        return view('sectors.index', compact('sectors', 'users'));
+        $sectors = Sector::orderBy('name')->get(); 
+        return view('sectors.index', compact('sectors'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,10 +30,9 @@ class SectorController extends Controller
      */
     public function create()
     {
-//        $users = User::where('user_type', '<>', 'V')->orderBy('name')->lists('name', 'id');
-//        $selectedUser = null;
-//        return view('sectors.create', compact('selectedUser', 'users'));
-        return view('sectors.create');
+        $area = Area::orderby('name')->get()->pluck('name', 'id');
+        $selectedArea = null;
+        return view('sectors.create', compact('area', 'selectedArea'));
     }
 
     /**
@@ -48,12 +47,11 @@ class SectorController extends Controller
             'name' => 'required|unique:areas|max:100',
             'description' => 'string|max:100',
             'email' => 'email',
-//            'user_id' => 'required',
         ];
-        $this->validate($request, $rules); //dd($request->all());
+        $this->validate($request, $rules);
         Sector::create($request->all());
         flash('El sector se creó con éxito.', 'success');
-        return redirect('sectores');
+        return redirect('/sectores');
     }
 
     /**
@@ -77,10 +75,10 @@ class SectorController extends Controller
      */
     public function edit($id)
     {
+        $area = Area::orderby('name')->get()->pluck('name', 'id');
+        $selectedArea = null;
         $sector = Sector::findOrFail($id);
-//        $selectedUser = $sector->manager->id;
-//        $users = User::where('user_type', '!=', 'V')->orderBy('name')->lists('name', 'id');
-        return view('sectors.edit', compact('sector'));
+        return view('sectors.edit', compact('area', 'selectedArea', 'sector'));
     }
 
     /**
@@ -96,13 +94,12 @@ class SectorController extends Controller
             'name' => 'required|unique:areas|max:100',
             'description' => 'string|max:100',
             'email' => 'email',
-//            'user_id' => 'required',
         ];
-        $this->validate($request, $rules); //dd($request->all());
+        $this->validate($request, $rules);
         $sector = Sector::findOrFail($id);
         $sector->update($request->all());
         flash('El sector se actualizó con éxito.', 'success');
-        return redirect('sectores');
+        return redirect('/sectores');
     }
 
     /**
@@ -115,7 +112,7 @@ class SectorController extends Controller
     {
         Sector::destroy($id);
         flash('El sector se eliminó con éxito.', 'success');
-        return redirect('sectores');
+        return redirect('/sectores');
 
     }
 }

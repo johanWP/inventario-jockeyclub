@@ -42,6 +42,14 @@
             @endif
             {{--<li><a href="/proveedores/"><i class='fa fa-link'></i> <span>Solo Proveedores</span></a></li>--}}
             <li class="treeview">
+                <a href="#"><i class='fa fa-area-chart'></i> <span>Areas</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/areas/create">Crear nueva</a></li>
+                    <li><a href="/areas">Ver Todas</a></li>
+                </ul>
+            </li>
+            
+            <li class="treeview">
                 <a href="#"><i class='fa fa-pie-chart'></i> <span>Sectores</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/sectores/create">Crear nuevo</a></li>
@@ -49,13 +57,6 @@
                 </ul>
             </li>
 
-            <li class="treeview">
-                <a href="#"><i class='fa fa-area-chart'></i> <span>Areas</span> <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="/areas/create">Crear nueva</a></li>
-                    <li><a href="/areas">Ver Todas</a></li>
-                </ul>
-            </li>
 
             <li class="treeview">
                 <a href="#"><i class='fa fa-desktop'></i> <span>Equipos</span> <i class="fa fa-angle-left pull-right"></i></a>

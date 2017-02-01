@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string('position', 60);
-            $table->integer('area_id')->unsigned();
+            $table->integer('sector_id')->unsigned();
             $table->string('ext')->nullable();
             $table->char('user_type', 2)->default('U');
             $table->rememberToken();
