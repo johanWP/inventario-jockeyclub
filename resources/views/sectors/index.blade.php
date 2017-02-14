@@ -43,7 +43,7 @@
                                                 data-target="#modalDelete"
                                                 data-id="{{ $sector->id }}"
                                                 data-name="{{$sector->name}}"
-                                                data-model="areas">Borrar
+                                                data-model="sectores">Borrar
                                         </button>
                                     </td>
                                 </tr>

@@ -114,6 +114,11 @@ class AreaController extends Controller
     public function destroy($id)
     {
         $area = Area::findOrFail($id);
+        if($area->sectors->count() > 0)
+        {
+            flash('No se puede borrar un área con sectores asociados', 'danger');
+            return redirect()->back();
+        }
         $area->delete();
         flash('El área se borró con éxito.', 'success');
         return redirect('/areas');

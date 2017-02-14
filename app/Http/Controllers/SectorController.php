@@ -110,7 +110,13 @@ class SectorController extends Controller
      */
     public function destroy($id)
     {
-        Sector::destroy($id);
+        $sector = Sector::find($id);
+        if($sector->users->count() > 0)
+        {
+            flash('No se puede borrar un sector con usuarios asociados', 'danger');
+            return redirect()->back();
+        }
+        $sector->delete();
         flash('El sector se eliminó con éxito.', 'success');
         return redirect('/sectores');
 

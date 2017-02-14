@@ -68,7 +68,7 @@
     @endif
     <div class="row">
         <div class="col-sm-4"><b>Asignado a:</b></div>
-        <div class="col-sm-8"><a href="/usuarios/{{$asset->owner->id}}">{{ $asset->owner->name }}</a></div>
+        <div class="col-sm-8"><a href="/usuarios/{{$asset->owner->id}}">{{ $asset->owner->fullName }}</a></div>
     </div>
     <div class="row">
         <div class="col-sm-4"><b>Notas:</b></div>
