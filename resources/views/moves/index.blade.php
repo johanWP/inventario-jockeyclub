@@ -33,7 +33,8 @@
                             <tbody>
                             @foreach ($moves as $move)
                                 <tr>
-                                    <td>{{$move->created_at->format('d-M-Y h:m') }}</td>
+                                    <td>{{$move->created_at->diffForHumans() }}</td>
+{{--                                    <td>{{$move->created_at->format('d-M-Y h:m') }}</td>--}}
                                     <td><a href="/usuarios/{{ $move->usuarioOrigen->id }}">{{$move->usuarioOrigen->fullName}}</a></td>
                                     <td><a href="/usuarios/{{ $move->usuarioDestino->id }}">{{$move->usuarioDestino->fullName}}</a></td>
                                     <td><a href="/equipos/{{ $move->asset->id }}">{{ $move->asset->serial }}</a></td>
