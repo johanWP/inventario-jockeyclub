@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
+    use DatabaseTransactions;
+    
     /**
      * @var string $tabla Nombre de la tabla de Areas
      */

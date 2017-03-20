@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Asset extends Model implements LogsActivityInterface
 {
-    use SoftDeletes;
-    use LogsActivity;
+    use SoftDeletes, LogsActivity;
 
     protected $table = 'assets';
     protected $fillable = [
@@ -71,18 +71,19 @@ class Asset extends Model implements LogsActivityInterface
     {
         if ($eventName == 'created')
         {
-            return 'El equipo serial "' . $this->serial . '" se creó';
+            return 'Equipo creado por ' . Auth::user()->fullName . ': '. $this->name;
         }
 
         if ($eventName == 'updated')
         {
-            return 'El equipo "' . $this->serial . '" se actualizó';
+            return 'Equipo actualizado por ' . Auth::user()->fullName . ': '. $this->name;
         }
 
         if ($eventName == 'deleted')
         {
-            return 'El equipo "' . $this->serial . '" se eliminó';
+            return 'Equipo eliminado por ' . Auth::user()->fullName . ': '. $this->name;
         }
+
         return '';
     }
 

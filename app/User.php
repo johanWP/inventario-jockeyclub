@@ -106,4 +106,30 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->name . ' ' . $this->last_name;
     }
+
+    /**
+     * Get the message that needs to be logged for the given event name.
+     *
+     * @param string $eventName
+     * @return string
+     */
+    public function getActivityDescriptionForEvent($eventName)
+    {
+        if ($eventName == 'created')
+        {
+            return 'Usuario creado por ' . Auth::user()->fullName . ': '. $this->fullName;
+        }
+
+        if ($eventName == 'updated')
+        {
+            return 'Usuario actualizado por ' . Auth::user()->fullName . ': '. $this->fullName;
+        }
+
+        if ($eventName == 'deleted')
+        {
+            return 'Usuario eliminado por ' . Auth::user()->fullName . ': '. $this->fullName;
+        }
+
+        return '';
+    }
 }

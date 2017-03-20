@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SectorTest extends TestCase
 {
-//    use DatabaseTransactions;
+    use DatabaseTransactions;
     /**
      * @var string $tabla Nombre de la tabla de Movimientos
      */

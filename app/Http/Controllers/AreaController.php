@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Sector;
 use App\Area;
+use Spatie\Activitylog\ActivitylogFacade;
+use Illuminate\Support\Facades\Auth;
 
 class AreaController extends Controller
 {
@@ -76,8 +77,6 @@ class AreaController extends Controller
     public function edit($id)
     {
         $area = Area::findOrFail($id);
-//        $sector = Sector::orderby('name')->get()->pluck('name', 'id');
-//        $selectedSector = $area->sector->id;
         return view('areas.edit', compact('area'));
     }
 
@@ -100,6 +99,12 @@ class AreaController extends Controller
         $this->validate($request, $rules);
         $area = Area::findOrFail($id);
         $area->update($request->all());
+//
+//        activity()
+//            ->performedOn($area)
+//            ->causedBy(Auth::user())
+//            ->log('Área actualizada');
+
         flash('El área se actualizó con éxito.', 'success');
         return redirect('/areas');
     }

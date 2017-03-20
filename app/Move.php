@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\LogsActivity;
 
@@ -56,17 +57,20 @@ class Move extends Model implements LogsActivityInterface
     {
         if ($eventName == 'created')
         {
-            return 'El equipo serial "' . $this->asset->serial . '" se transfirió de '.$this->usuarioOrigen->name.' a '.$this->usuarioDestino->name;
+            return 'Movimiento creado por ' . Auth::user()->fullName . ': Equipo "' . $this->asset->serial . '" de '.
+            $this->usuarioOrigen->fullName . ' a '.$this->usuarioDestino->fullName;
         }
 
         if ($eventName == 'updated')
         {
-            return 'Corrección: El equipo serial "' . $this->asset->serial . '" se transfirió de '.$this->usuarioOrigen.' a '.$this->usuarioDestino;
+            return 'Movimiento actualizado por ' . Auth::user()->fullName . ': Equipo "' . $this->asset->serial .
+            '" de '. $this->usuarioOrigen->fullName . ' a '.$this->usuarioDestino->fullName;
         }
 
         if ($eventName == 'deleted')
         {
-            return 'Eliminación: El equipo serial "' . $this->asset->serial . '" se transfirió de '.$this->usuarioOrigen.' a '.$this->usuarioDestino;
+            return 'Movimiento eliminado por ' . Auth::user()->fullName . ': Equipo "' . $this->asset->serial . '" de '.
+            $this->usuarioOrigen->fullName . ' a '.$this->usuarioDestino->fullName;
         }
 
         return '';
