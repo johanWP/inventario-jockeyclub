@@ -53,12 +53,19 @@
                         .fail ( function () {
                             alert ( "error" );
                         } );
-                if ( $(this).val () == '3' || $(this).val () == '7')    // Si el tipo es PC o Notebook
+                if ($(this).val () == '3' || $(this).val () == '7')    // Si el tipo es PC o Notebook
                 {
                     $ ('div[name=pc]').show ();
                 } else {
                     $ ('div[name=pc]').hide ();
                 }
+
+                if ($(this).val () == '3')
+                {
+                    $('#marca').val('Clon');
+                    $('#modelo').val('Clon');
+                }
+
             });
         });
     </script>

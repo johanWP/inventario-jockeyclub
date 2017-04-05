@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Asset;
+use App\Events\MovimientoDeNotebook;
 use App\Move;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MoveController extends Controller
 {
@@ -32,7 +34,7 @@ class MoveController extends Controller
     {
         $selectedOrigen = null;
         $selectedDestino = null;
-//        $users = \App\User::orderBy('name')->pluck('name', 'id');
+
         $usuarios = User::orderBy('last_name')->get();
         foreach($usuarios as $user)
         {
@@ -70,6 +72,12 @@ class MoveController extends Controller
             $asset = Asset::find($asset_id);
             $asset->usuario_actual = $request->destino;
             $asset->save();
+
+            // si el movimiento es sobre una notebook
+            if ($asset->type_id == '7')
+            {
+                event(new MovimientoDeNotebook($asset));
+            }
         }
         flash('El movimiento se registró con éxito.', 'success');
         return redirect('movimientos');

@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/movimientos', 'MoveController');
 //    Route::get('papelera/', 'TrashController@index');
     Route::get('/pdf/guia', 'PdfController@getUsers');
+    Route::get('/pdf/responsable/{asset}', 'PdfController@docResponsabilidad');
+    Route::get('/html/responsable/{asset}', 'PdfController@documentoResponsabilidad');
     Route::get('/avaya/import', 'AvayaController@getFile');
     Route::post('/avaya/import', 'AvayaController@importAvaya');
     Route::get('rolesAdmin', ['as' => 'roles', 'uses' => 'RoleController@index']);

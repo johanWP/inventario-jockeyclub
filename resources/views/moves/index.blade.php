@@ -5,13 +5,13 @@
 @endsection
 @section('contentheader_title')
     Listado de movimientos
-    <a href="/movimientos/create/" class="btn btn-primary btn-lg"><i class="ion ion-ios-pricetag"></i> Crear Nuevo</a>
+    {{--<a href="/movimientos/create/" class="btn btn-primary btn-lg"><i class="ion ion-ios-pricetag"></i> Crear Nuevo</a>--}}
 @endsection
 
 @section('main-content')
     <div class="container">
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-12">
                 @include('flash::message')
                 <div class="panel panel-default">
                     <div class="panel-body">

@@ -30,6 +30,7 @@ return [
     */
 
     'url' => 'http://inventario.app',
+    'name' => 'Sistema de Inventario Jockey Club A.C.',
 
     /*
     |--------------------------------------------------------------------------

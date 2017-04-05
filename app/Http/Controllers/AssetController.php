@@ -11,6 +11,7 @@ use App\Asset;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\DB;
+use App\Events\MovimientoDeNotebook;
 
 class AssetController extends Controller
 {
@@ -102,7 +103,6 @@ class AssetController extends Controller
             flash('El equipo se creó con éxito.', 'success');
 
         } catch (\Illuminate\Database\QueryException $e) {
-            dd($e->errorInfo[2]);
             flash('El serial ' . $request->serial . 'está duplicado.', 'error');
             return back()->withInput();
         }
@@ -239,6 +239,13 @@ class AssetController extends Controller
         $move->asset_id = $asset_id;
         $move->user_id = $user_id;
         $result = $move->save();
+        if ($result)
+        {
+            if ($move->asset->type_id == 7)
+            {
+                event(new MovimientoDeNotebook($move->asset));
+            }
+        }
         return $result;
     }
 
