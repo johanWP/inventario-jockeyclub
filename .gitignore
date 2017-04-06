@@ -5,7 +5,3 @@ Homestead.json
 .env
 composer.lock
 .idea/
-public/qr/
-public/images/
-public/img/userImages/
-*.png
