@@ -38,10 +38,10 @@
             });
 
             if ( $('#type_id').val() == '3' || $('#type_id').val() == '7') {
-                $('div[name=pc]').show();
+                $('div[name=pc]').fadeIn();
             } else {
-                // Si es una PC o Notebook
-                $('div[name=pc]').hide();
+                // Si no es una PC o Notebook
+                $('div[name=pc]').fadeOut();
             }
 
             $('#type_id').change(function() {
@@ -55,9 +55,9 @@
                         } );
                 if ($(this).val () == '3' || $(this).val () == '7')    // Si el tipo es PC o Notebook
                 {
-                    $ ('div[name=pc]').show ();
+                    $ ('div[name=pc]').fadeIn();
                 } else {
-                    $ ('div[name=pc]').hide ();
+                    $ ('div[name=pc]').fadeOut();
                 }
 
                 if ($(this).val () == '3')

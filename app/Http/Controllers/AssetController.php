@@ -48,6 +48,9 @@ class AssetController extends Controller
         $motherboards = $this->PcCaracteristicas('motherboard');
         $selectedMotherboard = null;
 
+        $ram = $this->PcCaracteristicas('ram');
+        $selectedRam = null;
+
         $usuarios = User::orderBy('last_name')->get();
         foreach($usuarios as $user)
         {
@@ -62,7 +65,7 @@ class AssetController extends Controller
 
         $selectedUser = 1;
         return view('assets.create', compact('types', 'selectedType', 'sistemasOperativos', 'selectedSistemaOperativo',
-            'discosDuros', 'selectedDiscoDuro', 'procesadores', 'selectedProcesador',
+            'discosDuros', 'selectedDiscoDuro', 'procesadores', 'selectedProcesador', 'ram', 'selectedRam',
             'motherboards', 'selectedMotherboard', 'users', 'selectedUser'));
     }
 
@@ -146,6 +149,9 @@ class AssetController extends Controller
         $motherboards = $this->PcCaracteristicas('motherboard');
         $selectedMotherboard = null;
 
+        $ram = $this->PcCaracteristicas('ram');
+        $selectedRam = null;
+
         $usuarios = User::orderBy('last_name')->get();
         foreach($usuarios as $user)
         {
@@ -165,7 +171,8 @@ class AssetController extends Controller
             'sistemasOperativos', 'selectedSistemaOperativo',
             'discosDuros', 'selectedDiscoDuro',
             'procesadores', 'selectedProcesador',
-            'motherboards', 'selectedMotherboard'));
+            'motherboards', 'selectedMotherboard',
+            'ram', 'selectedRam'));
     }
 
     /**
