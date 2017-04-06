@@ -79,7 +79,7 @@ class AssetController extends Controller
     {
         try {
             $origen = User::where('username', 'compras')->first()->id;
-            $destino = User::where('username', 'sistemas')->first()->id;
+            $sistemas = User::where('username', 'sistemas')->first()->id;
             $rules = [
                 'fechaCompra'   => 'required|date',
                 'marca'         => 'required',
@@ -89,21 +89,26 @@ class AssetController extends Controller
                 'destination_id'=> 'required|numeric',
                 'sistema_operativo' => 'required_if:type_id, 3',    // requerido si el asset es un PC
                 'disco_duro'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
-                'motherboard'   => 'required_if:type_id, 3',    // requerido si el asset es un PC
-                'procesador'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
+//                'motherboard'   => 'required_if:type_id, 3',    // requerido si el asset es un PC
+//                'procesador'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
             ];
             $this->validate($request, $rules);
             $datos = $request->all();
             $datos['status'] = 'A';
             $datos['user_id'] = Auth::user()->id;
-            $destino = $datos['destination_id'];
             $asset = Asset::create($datos);
+            $destino = $datos['destination_id'];
             $asset->usuario_actual = $destino;
             $asset->save();
 
-            $move = $this->CrearMovimiento($origen, $destino, $asset->id, $asset->user_id);
+            $move = $this->CrearMovimiento($origen, $sistemas, $asset->id, $asset->user_id);
+            $move = $this->CrearMovimiento($sistemas, $destino, $asset->id, $asset->user_id);
 
-            flash('El equipo se creó con éxito.', 'success');
+            flash('El equipo se creó con éxito. 
+                <a href="/html/responsabilidad/'. $asset->id .'">
+                    Imprimir Documento de Responsabnilidad</a>',
+                'success')->
+                important();
 
         } catch (\Illuminate\Database\QueryException $e) {
             flash('El serial ' . $request->serial . 'está duplicado.', 'error');
@@ -192,6 +197,9 @@ class AssetController extends Controller
             'modelo'        => 'required',
             'serial'        => 'required',
             'precio'        => 'numeric',
+            'sistema_operativo' => 'required_if:type_id, 3',    // requerido si el asset es un PC
+            'disco_duro'    => 'required_if:type_id, 3',    // requerido si el asset es un PC
+
         ];
         $this->validate($request, $rules);
         $asset = Asset::findOrFail($id);
@@ -229,7 +237,9 @@ class AssetController extends Controller
     {
         if(count(Move::where('asset_id', $id)->get()) > 1)
         {
-            flash('No se puede eliminar un equipo que ha tenido movimientos. Envíelo al almacén de Dañados o Robados', 'danger');
+            flash('No se puede eliminar un equipo que ha tenido movimientos. 
+                Envíelo al almacén de Dañados o Robados', 'danger')->
+            important();
         } else
         {
             Asset::destroy($id);
